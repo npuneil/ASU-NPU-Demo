@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ASU — On-Device AI NPU Showcase</title>
+<link rel="stylesheet" href="/static/css/asu.css" />
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <div class="brand-line1">
+      <span class="pitchfork">🔱</span> Arizona State University
+    </div>
+    <div class="brand-line2">NPU Showcase · Demo / Sample Code</div>
+  </div>
+  <div class="status-pill">
+    <span class="dot" id="statusDot"></span>
+    <span id="statusText">Checking NPU…</span>
+  </div>
+</header>
+
+<nav class="tab-bar">
+  <button class="tab active" data-tab="home">Home</button>
+  <button class="tab" data-tab="advisor">📚 Academic Advisor</button>
+  <button class="tab" data-tab="research">🔬 Research</button>
+  <button class="tab" data-tab="success">🎯 Student Success</button>
+  <button class="tab" data-tab="financial">💰 Financial Aid</button>
+  <button class="tab" data-tab="career">💼 Career Services</button>
+  <button class="tab" data-tab="campus-ops">🏛️ Campus Ops</button>
+  <button class="tab" data-tab="vision-campus">📷 Campus Vision</button>
+  <button class="tab" data-tab="vision-student">📷 Student Vision</button>
+  <button class="tab" data-tab="dash">NPU Dashboard</button>
+</nav>
+
+<main>
+  <!-- HOME -->
+  <section class="panel active" id="panel-home">
+    <h2>On-Device AI for Higher Education</h2>
+    <p class="lead">
+      Six AI personas purpose-built for ASU — academic advising, research,
+      student success, financial aid, career services, and campus operations.
+      Everything runs locally on a Copilot+ PC NPU.
+    </p>
+    <div class="card-grid">
+      <div class="card">
+        <h3>🔒 Data Stays On-Device</h3>
+        <p>Student records, FERPA-protected data, financial info — nothing leaves the laptop. Zero cloud exposure.</p>
+      </div>
+      <div class="card">
+        <h3>⚡ Instant Insights</h3>
+        <p>NPU inference in seconds. No waiting for cloud API round-trips. Works offline, in any classroom or office.</p>
+      </div>
+      <div class="card">
+        <h3>💰 Zero Token Cost</h3>
+        <p>130,000+ students, thousands of advisors and staff. Cloud AI costs at ASU scale are massive. NPU inference is free after hardware.</p>
+      </div>
+    </div>
+    <p class="lead" style="margin-top:1.5rem;">
+      Watch the NPU Dashboard — see latency, tokens, and estimated cloud cost
+      savings in real time as you demo each persona.
+    </p>
+  </section>
+
+  <!-- ACADEMIC ADVISOR -->
+  <section class="panel" id="panel-advisor">
+    <h2>📚 Academic Advisor</h2>
+    <p class="lead">Course planning, degree progress, prerequisite chains, and graduation timelines.</p>
+    <div class="chips">
+      <button class="chip" data-fill="advisor-input">DEMO Student A — CS junior. Interested in AI/ML. What should they take next semester?</button>
+      <button class="chip" data-fill="advisor-input">DEMO Student B — Bio sophomore, GPA 2.31. What gen studies should they prioritize?</button>
+      <button class="chip" data-fill="advisor-input">DEMO Student D — ME freshman struggling with calculus. What support options exist?</button>
+    </div>
+    <textarea id="advisor-input" placeholder="Ask about course planning, degree progress, prerequisites…"></textarea>
+    <div class="btn-row">
+      <button class="btn" data-voice-for="advisor-input">🎤 Voice</button>
+      <button class="btn primary" data-submit="advisor">Ask Advisor →</button>
+    </div>
+    <div class="output" id="advisor-output"></div>
+  </section>
+
+  <!-- RESEARCH -->
+  <section class="panel" id="panel-research">
+    <h2>🔬 Research Assistant</h2>
+    <p class="lead">Grant proposals, literature review, methodology, IRB prep, and research timelines.</p>
+    <div class="chips">
+      <button class="chip" data-fill="research-input">DEMO Prof. Chen's biosensor project — what's the timeline for FDA pre-submission?</button>
+      <button class="chip" data-fill="research-input">Help draft an NSF grant abstract for urban sustainability using AI-driven climate modeling.</button>
+      <button class="chip" data-fill="research-input">DEMO Prof. Patel's federated learning study — IRB considerations for multi-site clinical genomics?</button>
+    </div>
+    <div class="field-row">
+      <label>Research Area</label>
+      <select id="research-area">
+        <option value="">— all areas —</option>
+      </select>
+    </div>
+    <textarea id="research-input" placeholder="Describe your research question, grant topic, or methodology need…"></textarea>
+    <div class="btn-row">
+      <button class="btn" data-voice-for="research-input">🎤 Voice</button>
+      <button class="btn primary" data-submit="research">Ask Research →</button>
+    </div>
+    <div class="output" id="research-output"></div>
+  </section>
+
+  <!-- STUDENT SUCCESS -->
+  <section class="panel" id="panel-success">
+    <h2>🎯 Student Success Coach</h2>
+    <p class="lead">Retention analysis, at-risk identification, engagement metrics, and intervention strategies.</p>
+    <div class="chips">
+      <button class="chip" data-fill="success-input">DEMO Student F — psychology senior, GPA 2.05, working 30+ hours. What interventions do you recommend?</button>
+      <button class="chip" data-fill="success-input">DEMO Student B — bio sophomore, attendance dropping to 71%. What's the engagement plan?</button>
+      <button class="chip" data-fill="success-input">Compare risk levels across all students in the system. Who needs immediate attention?</button>
+    </div>
+    <textarea id="success-input" placeholder="Ask about student risk assessment, retention strategies, or engagement…"></textarea>
+    <div class="btn-row">
+      <button class="btn" data-voice-for="success-input">🎤 Voice</button>
+      <button class="btn primary" data-submit="success">Ask Coach →</button>
+    </div>
+    <div class="output" id="success-output"></div>
+  </section>
+
+  <!-- FINANCIAL AID -->
+  <section class="panel" id="panel-financial">
+    <h2>💰 Financial Aid Advisor</h2>
+    <p class="lead">FAFSA, scholarships, grants, loans, tuition planning, and cost-of-attendance strategy.</p>
+    <div class="chips">
+      <button class="chip" data-fill="financial-input">DEMO Student B — out-of-state bio sophomore. They have $28K in loans. What aid options can reduce borrowing?</button>
+      <button class="chip" data-fill="financial-input">DEMO Student D — in-state ME freshman with Pell Grant + merit scholarship. Are they maximizing their aid?</button>
+      <button class="chip" data-fill="financial-input">What are the key financial aid deadlines this semester? List them in order.</button>
+    </div>
+    <textarea id="financial-input" placeholder="Ask about financial aid, scholarships, FAFSA, tuition planning…"></textarea>
+    <div class="btn-row">
+      <button class="btn" data-voice-for="financial-input">🎤 Voice</button>
+      <button class="btn primary" data-submit="financial">Ask Advisor →</button>
+    </div>
+    <div class="output" id="financial-output"></div>
+  </section>
+
+  <!-- CAREER SERVICES -->
+  <section class="panel" id="panel-career">
+    <h2>💼 Career Services Advisor</h2>
+    <p class="lead">Resume review, internship matching, interview prep, job market insights, and professional development.</p>
+    <div class="chips">
+      <button class="chip" data-fill="career-input">DEMO Student A — CS junior interested in AI/ML. What internships should they target for summer?</button>
+      <button class="chip" data-fill="career-input">DEMO Student E — business analytics junior with fintech internship. How should they leverage this for full-time?</button>
+      <button class="chip" data-fill="career-input">DEMO Student C — nursing senior. What's the job market look like for BSN graduates in Arizona?</button>
+    </div>
+    <textarea id="career-input" placeholder="Ask about career planning, internships, resume tips, or job market…"></textarea>
+    <div class="btn-row">
+      <button class="btn" data-voice-for="career-input">🎤 Voice</button>
+      <button class="btn primary" data-submit="career">Ask Career →</button>
+    </div>
+    <div class="output" id="career-output"></div>
+  </section>
+
+  <!-- CAMPUS OPERATIONS -->
+  <section class="panel" id="panel-campus-ops">
+    <h2>🏛️ Campus Operations Manager</h2>
+    <p class="lead">Facilities management, classroom scheduling, event planning, space utilization, and sustainability.</p>
+    <div class="chips">
+      <button class="chip" data-fill="campus-input">Hayden Library utilization is at 78%. How can we optimize space usage during peak hours?</button>
+      <button class="chip" data-fill="campus-input">Memorial Union needs elevator modernization. What's the priority and timeline recommendation?</button>
+      <button class="chip" data-fill="campus-input">Compare sustainability features across Tempe campus facilities. Where are the gaps?</button>
+    </div>
+    <textarea id="campus-input" placeholder="Ask about facilities, scheduling, events, maintenance, sustainability…"></textarea>
+    <div class="btn-row">
+      <button class="btn" data-voice-for="campus-input">🎤 Voice</button>
+      <button class="btn primary" data-submit="campus">Ask Ops →</button>
+    </div>
+    <div class="output" id="campus-output"></div>
+  </section>
+
+  <!-- VISION: CAMPUS -->
+  <section class="panel" id="panel-vision-campus">
+    <h2>📷 Campus Facility Analysis</h2>
+    <p class="lead">Upload a photo of a campus building, classroom, or facility for AI-powered assessment.</p>
+    <div class="vision-layout">
+      <div class="drop-zone" id="campus-drop">
+        <span>📷 Click or drag a facility photo here</span>
+        <input type="file" id="campus-file" accept="image/*" style="display:none" />
+      </div>
+      <img id="campus-preview" class="preview-img" style="display:none" />
+      <div id="campus-samples" class="gallery"></div>
+      <textarea id="campus-notes" placeholder="Optional: notes about the facility…"></textarea>
+      <div class="btn-row">
+        <button class="btn primary" data-vision-submit="campus">Analyze →</button>
+        <button class="btn" data-vision-clear="campus">Clear</button>
+      </div>
+      <div class="output" id="campus-output-vision"></div>
+    </div>
+  </section>
+
+  <!-- VISION: STUDENT -->
+  <section class="panel" id="panel-vision-student">
+    <h2>📷 Student Engagement Analysis</h2>
+    <p class="lead">Upload a photo of a classroom, lab, or campus event for engagement assessment.</p>
+    <div class="vision-layout">
+      <div class="drop-zone" id="student-vision-drop">
+        <span>📷 Click or drag a classroom/event photo here</span>
+        <input type="file" id="student-vision-file" accept="image/*" style="display:none" />
+      </div>
+      <img id="student-vision-preview" class="preview-img" style="display:none" />
+      <div id="student-vision-samples" class="gallery"></div>
+      <textarea id="student-vision-notes" placeholder="Optional: context about the session or event…"></textarea>
+      <div class="btn-row">
+        <button class="btn primary" data-vision-submit="student-vision">Analyze →</button>
+        <button class="btn" data-vision-clear="student-vision">Clear</button>
+      </div>
+      <div class="output" id="student-vision-output"></div>
+    </div>
+  </section>
+
+  <!-- NPU DASHBOARD -->
+  <section class="panel" id="panel-dash">
+    <h2>NPU Dashboard</h2>
+    <p class="lead">Live, on-device. Refreshes every 2 seconds.</p>
+    <div class="grid-4">
+      <div class="metric">
+        <div class="metric-label">Hardware</div>
+        <div class="metric-value" id="m-hw">—</div>
+        <div class="metric-sub" id="m-runtime">—</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Model</div>
+        <div class="metric-value" id="m-model">—</div>
+        <div class="metric-sub">on-device · Foundry Local</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Avg Latency</div>
+        <div class="metric-value"><span id="m-latency">0</span> <span class="unit">ms</span></div>
+        <div class="metric-sub">last 50 calls</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Throughput</div>
+        <div class="metric-value"><span id="m-tps">0</span> <span class="unit">tok/s</span></div>
+        <div class="metric-sub">recent window</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Total Calls</div>
+        <div class="metric-value" id="m-calls">0</div>
+        <div class="metric-sub">since boot</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Total Tokens</div>
+        <div class="metric-value" id="m-tokens">0</div>
+        <div class="metric-sub">processed locally</div>
+      </div>
+      <div class="metric highlight">
+        <div class="metric-label">Cloud Cost Avoided</div>
+        <div class="metric-value" id="m-cost">$0.00</div>
+        <div class="metric-sub">@ ~$10 / M tokens proxy</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">FERPA</div>
+        <div class="metric-value">🔒 0</div>
+        <div class="metric-sub">bytes left the device</div>
+      </div>
+    </div>
+    <h3 class="dash-h3">Recent Inferences</h3>
+    <table class="log-table">
+      <thead><tr><th>Time</th><th>Persona</th><th>Tokens</th><th>Latency</th><th>HW</th></tr></thead>
+      <tbody id="log-body"></tbody>
+    </table>
+  </section>
+</main>
+
+<footer class="disclaimer">
+  Demo / sample code — fictitious data. Not affiliated with or endorsed by
+  Arizona State University. AI outputs may be incorrect; verify all
+  recommendations. Built on Microsoft Foundry Local + Qualcomm QNN.
+</footer>
+
+<script src="/static/js/app.js"></script>
+</body>
+</html>

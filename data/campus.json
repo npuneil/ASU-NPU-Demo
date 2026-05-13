@@ -1,0 +1,92 @@
+{
+  "facilities": [
+    {
+      "name": "Hayden Library",
+      "campus": "Tempe",
+      "type": "Library / Study",
+      "capacity": 2400,
+      "hours": "24/7 during finals, 7AM-12AM regular",
+      "features": ["study rooms (42)", "maker space", "VR lab", "digital scholarship center", "cafe"],
+      "utilization_avg": 0.78,
+      "sustainability": "LEED Gold, solar panels, water reclamation",
+      "maintenance_status": "Good — HVAC upgrade completed 2024"
+    },
+    {
+      "name": "Memorial Union",
+      "campus": "Tempe",
+      "type": "Student Center",
+      "capacity": 3500,
+      "hours": "6AM-11PM",
+      "features": ["ballrooms (3)", "meeting rooms (18)", "food court", "bookstore", "theater"],
+      "utilization_avg": 0.85,
+      "sustainability": "Energy Star certified, compost program",
+      "maintenance_status": "Fair — elevator modernization needed Q3"
+    },
+    {
+      "name": "Sun Devil Fitness Complex",
+      "campus": "Tempe",
+      "type": "Recreation / Fitness",
+      "capacity": 1200,
+      "hours": "5:30AM-11PM",
+      "features": ["olympic pool", "climbing wall", "basketball courts (6)", "weight room", "group fitness studios (4)"],
+      "utilization_avg": 0.72,
+      "sustainability": "Solar-heated pool, LED lighting retrofit",
+      "maintenance_status": "Good — new flooring installed Jan 2025"
+    },
+    {
+      "name": "Biodesign Institute Building C",
+      "campus": "Tempe",
+      "type": "Research Lab",
+      "capacity": 400,
+      "hours": "24/7 badge access",
+      "features": ["BSL-2 labs", "cleanroom", "electron microscopy suite", "cold storage", "conference rooms (6)"],
+      "utilization_avg": 0.91,
+      "sustainability": "Energy recovery ventilation, smart lighting",
+      "maintenance_status": "Excellent — built 2018, fully maintained"
+    },
+    {
+      "name": "Classroom Building COOR",
+      "campus": "Tempe",
+      "type": "Classroom",
+      "capacity": 1800,
+      "hours": "7AM-10PM",
+      "features": ["lecture halls (4, 250-seat)", "classrooms (22)", "computer labs (3)", "advising offices"],
+      "utilization_avg": 0.88,
+      "sustainability": "Partial LED upgrade, no solar",
+      "maintenance_status": "Fair — carpet replacement due, some AV upgrades needed"
+    },
+    {
+      "name": "Nursing & Health Innovation Building",
+      "campus": "Downtown Phoenix",
+      "type": "Academic / Clinical",
+      "capacity": 600,
+      "hours": "6AM-10PM",
+      "features": ["simulation labs (8)", "clinical skills center", "telehealth studio", "student lounge", "rooftop garden"],
+      "utilization_avg": 0.82,
+      "sustainability": "LEED Platinum, rainwater harvesting",
+      "maintenance_status": "Excellent — opened 2022"
+    },
+    {
+      "name": "Polytechnic Academic Complex",
+      "campus": "Polytechnic",
+      "type": "Academic / Lab",
+      "capacity": 800,
+      "hours": "7AM-9PM",
+      "features": ["engineering labs", "flight simulator", "robotics workshop", "maker space", "student commons"],
+      "utilization_avg": 0.65,
+      "sustainability": "Solar carport adjacent, drought-tolerant landscaping",
+      "maintenance_status": "Good — lab equipment refresh in progress"
+    },
+    {
+      "name": "West Campus Kiva Building",
+      "campus": "West",
+      "type": "Multi-use Academic",
+      "capacity": 500,
+      "hours": "7AM-9PM",
+      "features": ["classrooms (15)", "faculty offices", "tutoring center", "quiet study areas"],
+      "utilization_avg": 0.58,
+      "sustainability": "Water-efficient fixtures, partial solar",
+      "maintenance_status": "Fair — exterior paint needed, ADA compliance review pending"
+    }
+  ]
+}

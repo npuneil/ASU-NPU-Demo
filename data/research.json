@@ -1,0 +1,69 @@
+{
+  "research_areas": [
+    {
+      "id": "sustainability",
+      "title": "Urban Sustainability & Climate Resilience",
+      "school": "School of Sustainability / Global Futures Lab",
+      "pi": "DEMO Prof. Martinez",
+      "funding_status": "NSF CAREER grant ($650K, Year 2 of 5)",
+      "grad_students": 4,
+      "focus": "Urban heat island mitigation strategies using AI-driven modeling for desert cities",
+      "methods": ["remote sensing", "machine learning", "climate modeling", "field sensors"],
+      "upcoming_deadlines": ["NSF annual report due Oct 15", "AAAS conference abstract Dec 1"],
+      "irb_required": false,
+      "publications_ytd": 3
+    },
+    {
+      "id": "biodesign",
+      "title": "Rapid Diagnostics via Paper-Based Biosensors",
+      "school": "Biodesign Institute / Center for Bioelectronics",
+      "pi": "DEMO Prof. Chen",
+      "funding_status": "NIH R01 ($1.2M, Year 3 of 4)",
+      "grad_students": 6,
+      "focus": "Low-cost point-of-care diagnostics for infectious diseases in resource-limited settings",
+      "methods": ["lateral flow assay", "CRISPR-based detection", "microfluidics", "clinical validation"],
+      "upcoming_deadlines": ["NIH progress report Jan 31", "FDA pre-submission meeting Feb"],
+      "irb_required": true,
+      "publications_ytd": 5
+    },
+    {
+      "id": "space",
+      "title": "Asteroid Sample Analysis & Planetary Science",
+      "school": "School of Earth and Space Exploration",
+      "pi": "DEMO Prof. Gupta",
+      "funding_status": "NASA cooperative agreement ($2.1M, Year 1 of 3)",
+      "grad_students": 8,
+      "focus": "Mineralogical and isotopic analysis of OSIRIS-REx asteroid samples",
+      "methods": ["mass spectrometry", "electron microscopy", "spectroscopy", "sample preparation"],
+      "upcoming_deadlines": ["Lunar and Planetary Science Conference abstract Jan 10", "NASA quarterly review Mar"],
+      "irb_required": false,
+      "publications_ytd": 2
+    },
+    {
+      "id": "ai-education",
+      "title": "AI-Adaptive Learning Systems for STEM Education",
+      "school": "Mary Lou Fulton Teachers College / CIDSE",
+      "pi": "DEMO Prof. Williams",
+      "funding_status": "DoE IES grant ($800K, Year 1 of 3)",
+      "grad_students": 3,
+      "focus": "Personalized AI tutoring systems that adapt to individual student learning patterns in gateway STEM courses",
+      "methods": ["learning analytics", "NLP", "randomized controlled trial", "eye tracking"],
+      "upcoming_deadlines": ["IRB renewal Nov 30", "AERA conference proposal Oct 20"],
+      "irb_required": true,
+      "publications_ytd": 1
+    },
+    {
+      "id": "health-ai",
+      "title": "Federated Learning for Clinical Genomics",
+      "school": "College of Health Solutions / Biodesign",
+      "pi": "DEMO Prof. Patel",
+      "funding_status": "Pending NIH U01 application ($3.5M)",
+      "grad_students": 5,
+      "focus": "Privacy-preserving machine learning across hospital networks for rare disease genomic analysis",
+      "methods": ["federated learning", "differential privacy", "genomic sequencing", "multi-site clinical data"],
+      "upcoming_deadlines": ["NIH U01 submission deadline Nov 5", "Preliminary data collection by Sep"],
+      "irb_required": true,
+      "publications_ytd": 4
+    }
+  ]
+}

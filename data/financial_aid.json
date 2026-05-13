@@ -1,0 +1,84 @@
+{
+  "aid_programs": [
+    {
+      "id": "presidents-scholarship",
+      "name": "President's Award",
+      "type": "merit",
+      "amount_range": "$1,000 – $13,000/year",
+      "eligibility": "3.0+ GPA, in-state or out-of-state, automatic consideration",
+      "renewable": true,
+      "renewal_gpa": 3.0,
+      "deadline": "Rolling with admission (priority Jan 15)",
+      "notes": "Amount varies by GPA and test scores. Stacks with Pell."
+    },
+    {
+      "id": "deans-scholarship",
+      "name": "Dean's Award",
+      "type": "merit",
+      "amount_range": "$500 – $4,000/year",
+      "eligibility": "3.0+ GPA, college-specific criteria",
+      "renewable": true,
+      "renewal_gpa": 3.0,
+      "deadline": "Feb 1 (priority)",
+      "notes": "Offered by individual colleges. Check college-specific requirements."
+    },
+    {
+      "id": "pell-grant",
+      "name": "Federal Pell Grant",
+      "type": "need-based",
+      "amount_range": "Up to $7,395/year (2024-25)",
+      "eligibility": "FAFSA EFC below threshold, undergrad only",
+      "renewable": true,
+      "renewal_gpa": "SAP required (2.0+ GPA, 67%+ completion rate)",
+      "deadline": "FAFSA opens Oct 1, priority date Feb 1",
+      "notes": "Does not need to be repaid. Amount based on EFC, enrollment, and cost of attendance."
+    },
+    {
+      "id": "asu-grant",
+      "name": "ASU University Grant",
+      "type": "need-based",
+      "amount_range": "$500 – $5,000/year",
+      "eligibility": "Demonstrated need via FAFSA, in-state residents priority",
+      "renewable": true,
+      "renewal_gpa": "SAP required",
+      "deadline": "Rolling (limited funds — apply early)",
+      "notes": "Institutional grant. Does not require repayment."
+    },
+    {
+      "id": "work-study",
+      "name": "Federal Work-Study",
+      "type": "work-study",
+      "amount_range": "$2,500 – $4,000/year",
+      "eligibility": "FAFSA need-based, must indicate interest on FAFSA",
+      "renewable": true,
+      "renewal_gpa": "SAP required",
+      "deadline": "FAFSA priority date Feb 1",
+      "notes": "Part-time on-campus employment. 10-15 hrs/week. Many positions in labs, libraries, offices."
+    },
+    {
+      "id": "direct-loans",
+      "name": "Federal Direct Loans (Subsidized/Unsubsidized)",
+      "type": "loan",
+      "amount_range": "$3,500 – $7,500/year (dependent undergrad)",
+      "eligibility": "FAFSA completion, enrolled at least half-time",
+      "renewable": true,
+      "renewal_gpa": "SAP required",
+      "deadline": "Ongoing after FAFSA",
+      "notes": "Subsidized: govt pays interest while in school. Unsubsidized: interest accrues. Must be repaid."
+    }
+  ],
+  "tuition_snapshot": {
+    "in_state_full_time": "$11,338/year",
+    "out_of_state_full_time": "$30,592/year",
+    "asu_online": "$8,820/year (flat rate, 6-12 credits)",
+    "room_board_estimate": "$13,400/year",
+    "books_supplies": "$1,200/year"
+  },
+  "key_deadlines": {
+    "fafsa_opens": "October 1",
+    "fafsa_priority": "February 1",
+    "scholarship_priority": "January 15",
+    "tuition_payment_fall": "August 1",
+    "tuition_payment_spring": "January 2"
+  }
+}

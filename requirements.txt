@@ -1,0 +1,6 @@
+flask
+openvino>=2024.0
+openvino-genai>=2024.2
+huggingface_hub
+numpy
+Pillow

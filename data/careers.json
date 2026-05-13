@@ -1,0 +1,72 @@
+{
+  "career_resources": [
+    {
+      "id": "handshake",
+      "name": "Handshake",
+      "type": "Job Platform",
+      "description": "ASU's primary job and internship board. 200K+ employers. Filter by major, location, visa sponsorship.",
+      "url": "https://asu.joinhandshake.com",
+      "tip": "Complete your profile to 100% — employers filter by profile completeness."
+    },
+    {
+      "id": "career-fairs",
+      "name": "Career & Internship Fairs",
+      "type": "Events",
+      "description": "Fulton Engineering, W.P. Carey Business, University-wide, and STEM-specific fairs each semester.",
+      "schedule": "Fall: Sep-Oct, Spring: Feb-Mar",
+      "tip": "Register on Handshake 2 weeks before. Research attending employers. Bring 20+ resumes."
+    },
+    {
+      "id": "career-coaching",
+      "name": "1-on-1 Career Coaching",
+      "type": "Advising",
+      "description": "30-min appointments with career coaches for resume review, interview prep, job search strategy.",
+      "availability": "Book via Handshake. Same-day walk-ins available MWF 1-4 PM.",
+      "tip": "Bring a draft resume and 2-3 target job postings to maximize the session."
+    },
+    {
+      "id": "alumni-network",
+      "name": "Sun Devil Career Network",
+      "type": "Networking",
+      "description": "600K+ ASU alumni worldwide. Mentorship matching, industry panels, and alumni referral program.",
+      "tip": "Search by industry and location on ASU Alumni Association portal. Many alumni actively mentor."
+    }
+  ],
+  "industry_insights": [
+    {
+      "field": "Software Engineering / CS",
+      "demand": "Very High",
+      "avg_starting_salary": "$92,000",
+      "top_employers_at_asu": ["Amazon", "Microsoft", "Intel", "General Motors", "American Express"],
+      "hot_skills": ["Python", "Cloud (AWS/Azure)", "ML/AI", "System Design", "LeetCode"]
+    },
+    {
+      "field": "Nursing (BSN)",
+      "demand": "Very High",
+      "avg_starting_salary": "$68,000",
+      "top_employers_at_asu": ["Banner Health", "Mayo Clinic", "HonorHealth", "Dignity Health", "VA Medical"],
+      "hot_skills": ["Clinical rotations", "NCLEX prep", "EMR systems", "Telehealth", "Critical care"]
+    },
+    {
+      "field": "Business Analytics / Data Science",
+      "demand": "High",
+      "avg_starting_salary": "$75,000",
+      "top_employers_at_asu": ["Deloitte", "KPMG", "Discover Financial", "State Farm", "PayPal"],
+      "hot_skills": ["SQL", "Python/R", "Tableau/Power BI", "A/B Testing", "Statistical Modeling"]
+    },
+    {
+      "field": "Sustainability / Environmental Science",
+      "demand": "Growing",
+      "avg_starting_salary": "$52,000",
+      "top_employers_at_asu": ["EPA", "SRP", "City of Phoenix", "Stantec", "AECOM"],
+      "hot_skills": ["GIS", "Environmental policy", "Data analysis", "Grant writing", "Climate modeling"]
+    },
+    {
+      "field": "Mechanical Engineering",
+      "demand": "High",
+      "avg_starting_salary": "$72,000",
+      "top_employers_at_asu": ["Boeing", "Honeywell", "Raytheon", "Tesla", "General Dynamics"],
+      "hot_skills": ["CAD/SolidWorks", "FEA/CFD", "Manufacturing", "Robotics", "Project Management"]
+    }
+  ]
+}
