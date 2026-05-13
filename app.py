@@ -719,22 +719,30 @@ def api_data_research():
 
 
 SAMPLE_IMAGES = [
-    {"name": "library_exterior", "label": "Hayden Library — Tempe", "url": "/static/samples/library_exterior.jpg", "category": "campus",
-     "description": "Exterior photo of Hayden Library on the Tempe campus. Multi-story academic library building with large glass windows, concrete facade, landscaped entrance with palm trees, bike racks, and student walkways. Visible signage reads 'Hayden Library'. Adjacent to a grassy quad area with benches."},
-    {"name": "lecture_hall", "label": "COOR Lecture Hall", "url": "/static/samples/lecture_hall.jpg", "category": "campus",
-     "description": "Interior photo of a 250-seat tiered lecture hall in COOR building. Stadium-style seating with fold-down desks, two large projection screens at the front, podium with built-in AV controls, overhead fluorescent lighting, and emergency exit signs on both sides."},
-    {"name": "biodesign_lab", "label": "Biodesign Institute Lab", "url": "/static/samples/biodesign_lab.jpg", "category": "campus",
-     "description": "Interior photo of a BSL-2 research laboratory in the Biodesign Institute. Lab benches with microscopes, centrifuges, and glassware. Fume hood visible in background. Cleanroom access door with biosafety signage. Overhead LED lighting. PPE station near entrance."},
-    {"name": "fitness_center", "label": "Sun Devil Fitness Complex", "url": "/static/samples/fitness_center.jpg", "category": "campus",
-     "description": "Exterior photo of the Sun Devil Fitness Complex. Modern building with floor-to-ceiling windows showing interior gym equipment. Entrance features ASU branding. Surrounding area includes an outdoor pool visible behind the building, basketball courts, and a rock climbing wall section."},
-    {"name": "active_classroom", "label": "Active Learning Classroom", "url": "/static/samples/active_classroom.jpg", "category": "student",
-     "description": "Photo of an active learning classroom with approximately 30 students working in groups of 4-5 at round tables. Each table has a shared monitor. Students are engaged in discussion, some pointing at laptops, others writing on whiteboards mounted at each station. Instructor circulates among groups. Well-lit room with modern furniture."},
-    {"name": "lecture_session", "label": "Large Lecture Session", "url": "/static/samples/lecture_session.jpg", "category": "student",
-     "description": "Photo of a large lecture session with 200+ students in a tiered auditorium. Professor at podium with slides projected showing mathematical formulas. Most students have laptops open, some taking handwritten notes. Mix of attentiveness levels — front rows engaged, some students in back rows on phones. Assignment deadline visible on screen."},
-    {"name": "research_lab", "label": "Research Lab Collaboration", "url": "/static/samples/research_lab.jpg", "category": "student",
-     "description": "Photo of graduate and undergraduate students collaborating in a research lab. Three students at a lab bench examining samples, two others at computer stations analyzing data on dual monitors. Lab equipment includes oscilloscopes, soldering stations, and 3D printed prototypes. Whiteboard with research timeline and milestones."},
-    {"name": "computer_lab", "label": "Computer Lab Workshop", "url": "/static/samples/computer_lab.jpg", "category": "student",
-     "description": "Photo of a computer lab coding workshop with approximately 20 students at individual workstations. Screens show IDE environments with code. A teaching assistant helps a student debug at their station. Projector shows step-by-step tutorial. Students wearing headphones, some working in pairs via pair programming."},
+    # ── Campus facility photos (real) ──
+    {"name": "campus_aerial", "label": "ASU Tempe Campus — Aerial View", "url": "/static/samples/campus_aerial.jpg", "category": "campus",
+     "description": "Aerial photograph of the Arizona State University Tempe campus. Visible are multiple academic buildings with terracotta and modern glass facades, palm-tree lined walkways connecting buildings, large open quad areas with green lawns, bicycle parking areas, and the surrounding Tempe urban landscape. A-Mountain (Hayden Butte) is visible in the background."},
+    {"name": "campus_building", "label": "ASU Academic Building", "url": "/static/samples/campus_building.jpg", "category": "campus",
+     "description": "Photo of a modern ASU academic building on the Tempe campus. Multi-story structure with floor-to-ceiling glass curtain walls, steel and concrete construction, covered walkways at ground level, and ASU maroon accent panels. Landscaped entrance with desert-adapted plantings, bike racks, and ADA-accessible ramps. Students visible walking nearby."},
+    {"name": "lecture_hall_real", "label": "University Lecture Hall", "url": "/static/samples/lecture_hall_real.jpg", "category": "campus",
+     "description": "Interior photo of a large university lecture hall with tiered stadium seating for 200+ students. Modern acoustical ceiling panels, dual projection screens at the front, integrated desk surfaces at each seat, LED overhead lighting, and AV control podium. Emergency exit signs visible on both sides. Carpet flooring in the aisles."},
+    {"name": "fitness_real", "label": "Sun Devil Fitness Complex", "url": "/static/samples/fitness_real.jpg", "category": "campus",
+     "description": "Interior photo of a modern university fitness center with rows of treadmills, ellipticals, and weight machines. Floor-to-ceiling windows letting in natural light. Rubber flooring, overhead fans, flat-screen TVs mounted on walls. Students working out on various equipment. Clean, well-maintained facility."},
+    {"name": "library_books", "label": "Hayden Library Interior", "url": "/static/samples/library_books.jpg", "category": "campus",
+     "description": "Interior photo of a university library showing rows of bookshelves with academic volumes, study carrels along windows, reading tables with task lighting, and a quiet study atmosphere. Natural light filtering through large windows. Students seated at individual study stations."},
+    {"name": "science_lab", "label": "Biodesign Research Lab", "url": "/static/samples/science_lab.jpg", "category": "campus",
+     "description": "Interior photo of a modern university science laboratory with lab benches, microscopes, fume hoods, chemical storage cabinets, and safety equipment. Overhead LED lighting, anti-static flooring, emergency eyewash station visible. Lab equipment includes centrifuges and analytical instruments."},
+    # ── Student activity photos (real) ──
+    {"name": "classroom_real", "label": "Active Learning Classroom", "url": "/static/samples/classroom_real.jpg", "category": "student",
+     "description": "Photo of a university classroom during an active learning session. Students seated at tables working in small groups, some with laptops open, others writing notes. Instructor visible at the front near a whiteboard with equations. Well-lit room with modern furniture, projector screen, and collaborative seating arrangement."},
+    {"name": "students_studying", "label": "Students Studying on Campus", "url": "/static/samples/students_studying.jpg", "category": "student",
+     "description": "Photo of university students studying outdoors on campus. Students seated on benches and at tables under shade trees, some with laptops, others reading textbooks. Backpacks and water bottles nearby. Warm sunny day with campus buildings visible in background. Collaborative and individual study happening simultaneously."},
+    {"name": "students_walking", "label": "Students on Palm Walk", "url": "/static/samples/students_walking.jpg", "category": "student",
+     "description": "Photo of university students walking along a palm-tree lined campus walkway between classes. Groups of students with backpacks, some in conversation, others checking phones. Modern academic buildings on both sides. Sunny day with clear skies. Bike riders sharing the path."},
+    {"name": "graduation", "label": "ASU Commencement Ceremony", "url": "/static/samples/graduation.jpg", "category": "student",
+     "description": "Photo of a university graduation/commencement ceremony. Graduates in maroon caps and gowns, some with decorated mortarboards. Sun Devil Stadium or ceremony venue visible. Families in audience. Stage with university officials. ASU banners and regalia. Celebration atmosphere with students tossing caps."},
+    {"name": "student_laptop", "label": "Student Working in Lab", "url": "/static/samples/student_laptop.jpg", "category": "student",
+     "description": "Photo of a university student working on a laptop in a computer lab or study space. Screen shows academic work. Student wearing headphones, focused and engaged. Modern workspace with good lighting. Other workstations visible in background."},
 ]
 
 @app.route("/api/samples")
