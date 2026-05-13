@@ -720,7 +720,17 @@ def api_data_research():
 
 @app.route("/api/samples")
 def api_samples():
-    return jsonify({"samples": []})
+    samples = [
+        {"name": "library_exterior", "label": "Hayden Library — Tempe", "url": "/static/samples/library_exterior.jpg", "category": "campus"},
+        {"name": "lecture_hall", "label": "COOR Lecture Hall", "url": "/static/samples/lecture_hall.jpg", "category": "campus"},
+        {"name": "biodesign_lab", "label": "Biodesign Institute Lab", "url": "/static/samples/biodesign_lab.jpg", "category": "campus"},
+        {"name": "fitness_center", "label": "Sun Devil Fitness Complex", "url": "/static/samples/fitness_center.jpg", "category": "campus"},
+        {"name": "active_classroom", "label": "Active Learning Classroom", "url": "/static/samples/active_classroom.jpg", "category": "student"},
+        {"name": "lecture_session", "label": "Large Lecture Session", "url": "/static/samples/lecture_session.jpg", "category": "student"},
+        {"name": "research_lab", "label": "Research Lab Collaboration", "url": "/static/samples/research_lab.jpg", "category": "student"},
+        {"name": "computer_lab", "label": "Computer Lab Workshop", "url": "/static/samples/computer_lab.jpg", "category": "student"},
+    ]
+    return jsonify({"samples": samples})
 
 
 # ---------------------------------------------------------------------------
@@ -792,17 +802,9 @@ def api_campus():
 # ---------------------------------------------------------------------------
 @app.route("/api/transcribe", methods=["POST"])
 def api_transcribe():
-    if not VOICE_VISION_OK:
-        return jsonify({"error": "Voice module not available (OpenVINO required)"}), 503
-    audio = request.files.get("audio")
-    if not audio:
-        return jsonify({"error": "No audio file uploaded"}), 400
-    try:
-        wav_bytes = audio.read()
-        result = voice_vision.transcribe_wav(wav_bytes)
-        return jsonify(result)
-    except Exception as exc:
-        return jsonify({"error": str(exc)}), 500
+    # Voice input now handled client-side via Web Speech API (browser-native).
+    # This endpoint kept for backward compatibility.
+    return jsonify({"error": "Voice is handled by browser-native speech recognition (Web Speech API). No server-side transcription needed."}), 200
 
 
 @app.route("/api/vision/campus", methods=["POST"])

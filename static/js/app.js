@@ -81,118 +81,75 @@
     }[c]));
   }
 
-  // ---- Voice: MediaRecorder + WAV encode + POST to /api/transcribe ----
+  // ---- Voice: Browser-native Web Speech API (Windows Speech Recognition) ----
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const speechAvailable = !!SpeechRecognition;
+
   document.querySelectorAll("[data-voice-for]").forEach((btn) => {
-    let mediaStream = null;
-    let audioCtx = null;
-    let processor = null;
-    let chunks = [];
-    let recording = false;
+    let recognition = null;
+    let listening = false;
 
-    btn.addEventListener("click", async () => {
+    if (!speechAvailable) {
+      btn.title = "Speech recognition not supported in this browser";
+      btn.style.opacity = "0.5";
+      return;
+    }
+
+    btn.addEventListener("click", () => {
       const target = document.getElementById(btn.dataset.voiceFor);
-      if (recording) {
-        await stopAndTranscribe(target);
+
+      if (listening) {
+        recognition.stop();
         return;
       }
-      try {
-        mediaStream = await navigator.mediaDevices.getUserMedia({ audio: { channelCount: 1, echoCancellation: true, noiseSuppression: true } });
-      } catch (e) {
-        const msg = (e.name === "NotAllowedError")
-          ? "Microphone permission denied — allow it in the browser and try again."
-          : (e.name === "NotFoundError")
-            ? "No microphone found on this device."
-            : "Microphone error: " + (e.message || e.name);
-        target.placeholder = msg;
-        target.value = "";
-        return;
-      }
-      audioCtx = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: 16000 });
-      const src = audioCtx.createMediaStreamSource(mediaStream);
-      processor = audioCtx.createScriptProcessor(4096, 1, 1);
-      chunks = [];
-      processor.onaudioprocess = (ev) => {
-        chunks.push(new Float32Array(ev.inputBuffer.getChannelData(0)));
+
+      recognition = new SpeechRecognition();
+      recognition.lang = "en-US";
+      recognition.interimResults = true;
+      recognition.continuous = true;
+      recognition.maxAlternatives = 1;
+
+      let finalTranscript = "";
+      let interimTranscript = "";
+
+      recognition.onstart = () => {
+        listening = true;
+        btn.classList.add("recording");
+        btn.textContent = "● Stop";
       };
-      src.connect(processor);
-      processor.connect(audioCtx.destination);
-      recording = true;
-      btn.classList.add("recording");
-      btn.textContent = "● Stop";
-    });
 
-    async function stopAndTranscribe(target) {
-      recording = false;
-      btn.disabled = true;
-      btn.textContent = "⏳ Transcribing…";
-      try { processor.disconnect(); } catch {}
-      try { mediaStream.getTracks().forEach((t) => t.stop()); } catch {}
-      const sr = audioCtx.sampleRate;
-      try { await audioCtx.close(); } catch {}
-
-      const total = chunks.reduce((n, a) => n + a.length, 0);
-      const all = new Float32Array(total);
-      let off = 0;
-      for (const c of chunks) { all.set(c, off); off += c.length; }
-      const audio16k = (sr === 16000) ? all : resample(all, sr, 16000);
-      const wav = encodeWav(audio16k, 16000);
-      const fd = new FormData();
-      fd.append("audio", new Blob([wav], { type: "audio/wav" }), "rec.wav");
-      try {
-        const r = await fetch("/api/transcribe", { method: "POST", body: fd });
-        const data = await r.json();
-        if (data.text) {
-          target.value = (target.value ? target.value + " " : "") + data.text.trim();
-        } else if (data.error) {
-          target.placeholder = "Transcribe error: " + data.error;
+      recognition.onresult = (event) => {
+        interimTranscript = "";
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          if (event.results[i].isFinal) {
+            finalTranscript += event.results[i][0].transcript;
+          } else {
+            interimTranscript += event.results[i][0].transcript;
+          }
         }
-      } catch (e) {
-        target.placeholder = "Transcribe network error: " + e.message;
-      }
-      btn.classList.remove("recording");
-      btn.disabled = false;
-      btn.textContent = "🎤 Voice";
-    }
+        target.value = (target.value ? target.value + " " : "") +
+          finalTranscript + (interimTranscript ? " " + interimTranscript : "");
+        finalTranscript = "";
+      };
+
+      recognition.onerror = (event) => {
+        console.warn("Speech error:", event.error);
+        if (event.error === "not-allowed") {
+          target.placeholder = "Microphone permission denied — allow it and try again.";
+        } else if (event.error === "no-speech") {
+          target.placeholder = "No speech detected — try again.";
+        }
+      };
+
+      recognition.onend = () => {
+        listening = false;
+        btn.classList.remove("recording");
+        btn.textContent = "🎤 Voice";
+      };
+
+      recognition.start();
+    });
   });
-
-  function resample(buffer, srcRate, dstRate) {
-    if (srcRate === dstRate) return buffer;
-    const ratio = srcRate / dstRate;
-    const newLen = Math.round(buffer.length / ratio);
-    const out = new Float32Array(newLen);
-    for (let i = 0; i < newLen; i++) {
-      const idx = i * ratio;
-      const i0 = Math.floor(idx);
-      const i1 = Math.min(i0 + 1, buffer.length - 1);
-      const frac = idx - i0;
-      out[i] = buffer[i0] * (1 - frac) + buffer[i1] * frac;
-    }
-    return out;
-  }
-
-  function encodeWav(samples, sampleRate) {
-    const buffer = new ArrayBuffer(44 + samples.length * 2);
-    const view = new DataView(buffer);
-    const writeStr = (off, s) => { for (let i = 0; i < s.length; i++) view.setUint8(off + i, s.charCodeAt(i)); };
-    writeStr(0, "RIFF");
-    view.setUint32(4, 36 + samples.length * 2, true);
-    writeStr(8, "WAVE"); writeStr(12, "fmt ");
-    view.setUint32(16, 16, true);
-    view.setUint16(20, 1, true);
-    view.setUint16(22, 1, true);
-    view.setUint32(24, sampleRate, true);
-    view.setUint32(28, sampleRate * 2, true);
-    view.setUint16(32, 2, true);
-    view.setUint16(34, 16, true);
-    writeStr(36, "data");
-    view.setUint32(40, samples.length * 2, true);
-    let off = 44;
-    for (let i = 0; i < samples.length; i++, off += 2) {
-      const s = Math.max(-1, Math.min(1, samples[i]));
-      view.setInt16(off, s < 0 ? s * 0x8000 : s * 0x7FFF, true);
-    }
-    return buffer;
-  }
 
   // ---- Vision tabs ----
   const visionPicked = { campus: null, "student-vision": null };
