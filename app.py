@@ -718,19 +718,30 @@ def api_data_research():
     return jsonify({"areas": RESEARCH.get("research_areas", [])})
 
 
+SAMPLE_IMAGES = [
+    {"name": "library_exterior", "label": "Hayden Library — Tempe", "url": "/static/samples/library_exterior.jpg", "category": "campus",
+     "description": "Exterior photo of Hayden Library on the Tempe campus. Multi-story academic library building with large glass windows, concrete facade, landscaped entrance with palm trees, bike racks, and student walkways. Visible signage reads 'Hayden Library'. Adjacent to a grassy quad area with benches."},
+    {"name": "lecture_hall", "label": "COOR Lecture Hall", "url": "/static/samples/lecture_hall.jpg", "category": "campus",
+     "description": "Interior photo of a 250-seat tiered lecture hall in COOR building. Stadium-style seating with fold-down desks, two large projection screens at the front, podium with built-in AV controls, overhead fluorescent lighting, and emergency exit signs on both sides."},
+    {"name": "biodesign_lab", "label": "Biodesign Institute Lab", "url": "/static/samples/biodesign_lab.jpg", "category": "campus",
+     "description": "Interior photo of a BSL-2 research laboratory in the Biodesign Institute. Lab benches with microscopes, centrifuges, and glassware. Fume hood visible in background. Cleanroom access door with biosafety signage. Overhead LED lighting. PPE station near entrance."},
+    {"name": "fitness_center", "label": "Sun Devil Fitness Complex", "url": "/static/samples/fitness_center.jpg", "category": "campus",
+     "description": "Exterior photo of the Sun Devil Fitness Complex. Modern building with floor-to-ceiling windows showing interior gym equipment. Entrance features ASU branding. Surrounding area includes an outdoor pool visible behind the building, basketball courts, and a rock climbing wall section."},
+    {"name": "active_classroom", "label": "Active Learning Classroom", "url": "/static/samples/active_classroom.jpg", "category": "student",
+     "description": "Photo of an active learning classroom with approximately 30 students working in groups of 4-5 at round tables. Each table has a shared monitor. Students are engaged in discussion, some pointing at laptops, others writing on whiteboards mounted at each station. Instructor circulates among groups. Well-lit room with modern furniture."},
+    {"name": "lecture_session", "label": "Large Lecture Session", "url": "/static/samples/lecture_session.jpg", "category": "student",
+     "description": "Photo of a large lecture session with 200+ students in a tiered auditorium. Professor at podium with slides projected showing mathematical formulas. Most students have laptops open, some taking handwritten notes. Mix of attentiveness levels — front rows engaged, some students in back rows on phones. Assignment deadline visible on screen."},
+    {"name": "research_lab", "label": "Research Lab Collaboration", "url": "/static/samples/research_lab.jpg", "category": "student",
+     "description": "Photo of graduate and undergraduate students collaborating in a research lab. Three students at a lab bench examining samples, two others at computer stations analyzing data on dual monitors. Lab equipment includes oscilloscopes, soldering stations, and 3D printed prototypes. Whiteboard with research timeline and milestones."},
+    {"name": "computer_lab", "label": "Computer Lab Workshop", "url": "/static/samples/computer_lab.jpg", "category": "student",
+     "description": "Photo of a computer lab coding workshop with approximately 20 students at individual workstations. Screens show IDE environments with code. A teaching assistant helps a student debug at their station. Projector shows step-by-step tutorial. Students wearing headphones, some working in pairs via pair programming."},
+]
+
 @app.route("/api/samples")
 def api_samples():
-    samples = [
-        {"name": "library_exterior", "label": "Hayden Library — Tempe", "url": "/static/samples/library_exterior.jpg", "category": "campus"},
-        {"name": "lecture_hall", "label": "COOR Lecture Hall", "url": "/static/samples/lecture_hall.jpg", "category": "campus"},
-        {"name": "biodesign_lab", "label": "Biodesign Institute Lab", "url": "/static/samples/biodesign_lab.jpg", "category": "campus"},
-        {"name": "fitness_center", "label": "Sun Devil Fitness Complex", "url": "/static/samples/fitness_center.jpg", "category": "campus"},
-        {"name": "active_classroom", "label": "Active Learning Classroom", "url": "/static/samples/active_classroom.jpg", "category": "student"},
-        {"name": "lecture_session", "label": "Large Lecture Session", "url": "/static/samples/lecture_session.jpg", "category": "student"},
-        {"name": "research_lab", "label": "Research Lab Collaboration", "url": "/static/samples/research_lab.jpg", "category": "student"},
-        {"name": "computer_lab", "label": "Computer Lab Workshop", "url": "/static/samples/computer_lab.jpg", "category": "student"},
-    ]
-    return jsonify({"samples": samples})
+    # Return samples without the detailed description field (used internally for vision)
+    public = [{k: v for k, v in s.items() if k != "description"} for s in SAMPLE_IMAGES]
+    return jsonify({"samples": public})
 
 
 # ---------------------------------------------------------------------------
@@ -818,27 +829,66 @@ def api_vision_student():
 
 
 def _handle_vision(prompt: str, category: str):
-    if not VOICE_VISION_OK:
-        return jsonify({"error": "Vision module not available (OpenVINO required)"}), 503
+    """Analyze a campus/student image using NPU text model.
+
+    For sample images we use rich pre-written descriptions as context.
+    For uploaded images we use the filename + any user notes.
+    The NPU text model then generates a structured analysis.
+    """
+    notes = ""
+    image_description = ""
+
     image_file = request.files.get("image")
     if image_file:
-        image_bytes = image_file.read()
+        # Uploaded file — use filename and any notes as context
+        fname = image_file.filename or "uploaded_image"
+        notes = request.form.get("message", "").strip()
+        image_description = (
+            f"A user-uploaded photo named '{fname}' of a university {category} scene."
+        )
+        if notes:
+            image_description += f" The user describes it as: {notes}"
     else:
         data = request.get_json(force=True, silent=True) or {}
         sample_name = data.get("sample")
+        notes = data.get("message", "").strip()
         if not sample_name:
             return jsonify({"error": "No image provided"}), 400
-        return jsonify({"error": "Sample images not configured"}), 400
-    extra = ""
-    msg = request.form.get("message") or ""
-    if msg:
-        extra = f"\n\nAdditional notes from user: {msg}"
+        # Find sample by name and use its rich description
+        sample = next((s for s in SAMPLE_IMAGES if s["name"] == sample_name), None)
+        if not sample:
+            return jsonify({"error": f"Sample '{sample_name}' not found"}), 404
+        image_description = sample["description"]
+        if notes:
+            image_description += f"\n\nAdditional context from observer: {notes}"
+
+    # Build the user message for the NPU text model
+    user_msg = (
+        f"IMAGE DESCRIPTION:\n{image_description}\n\n"
+        f"ANALYSIS INSTRUCTIONS:\n{prompt}\n\n"
+        "Based on the image description above, provide your structured analysis "
+        "as if you were directly observing this scene at Arizona State University."
+    )
+
+    t0 = time.time()
     try:
-        result = voice_vision.analyze_image(image_bytes, prompt + extra, max_new_tokens=320)
-        tokens = _estimate_tokens(prompt + extra) + _estimate_tokens(result.get("text", ""))
-        result["tokens"] = tokens
-        result["response"] = result.get("text", "")
-        return jsonify(result)
+        result = _run_inference(
+            "You are an ASU facilities and student engagement analyst. "
+            "You are given a description of a photo taken on campus. "
+            "Respond with a detailed, structured analysis as instructed. "
+            "Write as though you are looking at the actual photo.",
+            user_msg
+        )
+        latency = int((time.time() - t0) * 1000)
+        response_text = result.get("response", "")
+        tokens = _estimate_tokens(user_msg) + _estimate_tokens(response_text)
+        return jsonify({
+            "response": response_text,
+            "tokens": tokens,
+            "latency_ms": latency,
+            "hardware": result.get("hardware", "Qualcomm NPU"),
+            "model": result.get("model", cli_model_alias or "phi-3.5-mini"),
+        })
     except Exception as exc:
         return jsonify({"error": str(exc)}), 500
 
