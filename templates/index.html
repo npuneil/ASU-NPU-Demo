@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>ASU — On-Device AI NPU Showcase</title>
+<title>ASU — Empower 2026 · On-Device AI Showcase</title>
 <link rel="stylesheet" href="/static/css/asu.css" />
 </head>
 <body>
@@ -13,7 +13,7 @@
     <div class="brand-line1">
       <span class="pitchfork">🔱</span> Arizona State University
     </div>
-    <div class="brand-line2">NPU Showcase · Demo / Sample Code</div>
+    <div class="brand-line2">Empower 2026 · On-Device AI Showcase · Demo / Sample Code</div>
   </div>
   <div class="status-pill">
     <span class="dot" id="statusDot"></span>
@@ -23,192 +23,258 @@
 
 <nav class="tab-bar">
   <button class="tab active" data-tab="home">Home</button>
-  <button class="tab" data-tab="advisor">📚 Academic Advisor</button>
-  <button class="tab" data-tab="research">🔬 Research</button>
-  <button class="tab" data-tab="success">🎯 Student Success</button>
-  <button class="tab" data-tab="financial">💰 Financial Aid</button>
-  <button class="tab" data-tab="career">💼 Career Services</button>
-  <button class="tab" data-tab="campus-ops">🏛️ Campus Ops</button>
-  <button class="tab" data-tab="vision-campus">📷 Campus Vision</button>
-  <button class="tab" data-tab="vision-student">📷 Student Vision</button>
+  <span class="tab-group-label">For Students</span>
+  <button class="tab" data-tab="syllabot">📑 Syllabot</button>
+  <button class="tab" data-tab="practice">🧠 Practice</button>
+  <button class="tab" data-tab="assignment">🗂️ Assignment Coach</button>
+  <button class="tab" data-tab="writing">✍️ Writing Guide</button>
+  <span class="tab-group-label">For Staff</span>
+  <button class="tab" data-tab="onboarding">🎒 Onboarding</button>
+  <button class="tab" data-tab="concierge">💬 Concierge</button>
+  <button class="tab" data-tab="kb">📚 Knowledge Base</button>
+  <button class="tab" data-tab="dev">🌱 Dev Coach</button>
+  <span class="tab-group-label">Hybrid</span>
+  <button class="tab" data-tab="hybrid">⚡ Hybrid AI · M365</button>
+  <span class="tab-group-label">Telemetry</span>
   <button class="tab" data-tab="dash">NPU Dashboard</button>
 </nav>
 
 <main>
   <!-- HOME -->
   <section class="panel active" id="panel-home">
-    <h2>On-Device AI for Higher Education</h2>
+    <h2>On-Device AI for ASU — the 8 Empower 2026 use cases</h2>
     <p class="lead">
-      Six AI personas purpose-built for ASU — academic advising, research,
-      student success, financial aid, career services, and campus operations.
-      Everything runs locally on a Copilot+ PC NPU.
+      Eight AI experiences mapped directly to ASU's published priorities, plus
+      a Hybrid AI / Microsoft 365 mock-up — all running locally on a
+      Copilot+ PC NPU via Foundry Local. Nothing leaves the device.
     </p>
     <div class="card-grid">
+      <div class="card group-students">
+        <h3>👩‍🎓 For Students</h3>
+        <ul class="usecase-list">
+          <li><b>Syllabot</b> — turn syllabi into interactive Q&amp;A.</li>
+          <li><b>Practice AI</b> — quiz yourself on key concepts.</li>
+          <li><b>Assignment Coach</b> — break projects into milestones.</li>
+          <li><b>Writing Guide</b> — structured pre-submit feedback.</li>
+        </ul>
+      </div>
+      <div class="card group-staff">
+        <h3>🧑‍💼 For Staff</h3>
+        <ul class="usecase-list">
+          <li><b>Onboarding</b> — 30/60/90 ramp-up for new hires.</li>
+          <li><b>Concierge</b> — unified "where do I…" answers.</li>
+          <li><b>Knowledge Base</b> — find policies fast.</li>
+          <li><b>Dev Coach</b> — goals, reflection, growth.</li>
+        </ul>
+      </div>
+      <div class="card group-hybrid">
+        <h3>⚡ Hybrid AI</h3>
+        <p>Microsoft 365-style demo: simulated retrieval from Outlook, Teams,
+          and SharePoint, with the answer composed on-device by the NPU.
+          (Mock data — no real M365 connection.)</p>
+      </div>
+    </div>
+    <div class="card-grid" style="margin-top:1rem;">
       <div class="card">
         <h3>🔒 Data Stays On-Device</h3>
-        <p>Student records, FERPA-protected data, financial info — nothing leaves the laptop. Zero cloud exposure.</p>
+        <p>Student records, drafts, internal docs — nothing leaves the laptop. FERPA-friendly by design.</p>
       </div>
       <div class="card">
-        <h3>⚡ Instant Insights</h3>
-        <p>NPU inference in seconds. No waiting for cloud API round-trips. Works offline, in any classroom or office.</p>
+        <h3>⚡ Instant Inference</h3>
+        <p>NPU runs in seconds. No cloud round-trips. Works offline.</p>
       </div>
       <div class="card">
         <h3>💰 Zero Token Cost</h3>
-        <p>130,000+ students, thousands of advisors and staff. Cloud AI costs at ASU scale are massive. NPU inference is free after hardware.</p>
+        <p>At ASU's scale (130,000+ learners) the cloud-token bill is real. Local inference is free after hardware.</p>
       </div>
     </div>
-    <p class="lead" style="margin-top:1.5rem;">
-      Watch the NPU Dashboard — see latency, tokens, and estimated cloud cost
-      savings in real time as you demo each persona.
-    </p>
   </section>
 
-  <!-- ACADEMIC ADVISOR -->
-  <section class="panel" id="panel-advisor">
-    <h2>📚 Academic Advisor</h2>
-    <p class="lead">Course planning, degree progress, prerequisite chains, and graduation timelines.</p>
-    <div class="chips">
-      <button class="chip" data-fill="advisor-input">DEMO Student A — CS junior. Interested in AI/ML. What should they take next semester?</button>
-      <button class="chip" data-fill="advisor-input">DEMO Student B — Bio sophomore, GPA 2.31. What gen studies should they prioritize?</button>
-      <button class="chip" data-fill="advisor-input">DEMO Student D — ME freshman struggling with calculus. What support options exist?</button>
-    </div>
-    <textarea id="advisor-input" placeholder="Ask about course planning, degree progress, prerequisites…"></textarea>
-    <div class="btn-row">
-      <button class="btn" data-voice-for="advisor-input">🎤 Voice</button>
-      <button class="btn primary" data-submit="advisor">Ask Advisor →</button>
-    </div>
-    <div class="output" id="advisor-output"></div>
-  </section>
-
-  <!-- RESEARCH -->
-  <section class="panel" id="panel-research">
-    <h2>🔬 Research Assistant</h2>
-    <p class="lead">Grant proposals, literature review, methodology, IRB prep, and research timelines.</p>
-    <div class="chips">
-      <button class="chip" data-fill="research-input">DEMO Prof. Chen's biosensor project — what's the timeline for FDA pre-submission?</button>
-      <button class="chip" data-fill="research-input">Help draft an NSF grant abstract for urban sustainability using AI-driven climate modeling.</button>
-      <button class="chip" data-fill="research-input">DEMO Prof. Patel's federated learning study — IRB considerations for multi-site clinical genomics?</button>
-    </div>
+  <!-- SYLLABOT -->
+  <section class="panel" id="panel-syllabot">
+    <h2>📑 Syllabot</h2>
+    <p class="lead">Turn syllabi into interactive AI tools — due dates, grading, materials, late policy.</p>
     <div class="field-row">
-      <label>Research Area</label>
-      <select id="research-area">
-        <option value="">— all areas —</option>
-      </select>
+      <label>Course</label>
+      <select id="syllabot-course"><option value="">— all courses —</option></select>
     </div>
-    <textarea id="research-input" placeholder="Describe your research question, grant topic, or methodology need…"></textarea>
-    <div class="btn-row">
-      <button class="btn" data-voice-for="research-input">🎤 Voice</button>
-      <button class="btn primary" data-submit="research">Ask Research →</button>
-    </div>
-    <div class="output" id="research-output"></div>
-  </section>
-
-  <!-- STUDENT SUCCESS -->
-  <section class="panel" id="panel-success">
-    <h2>🎯 Student Success Coach</h2>
-    <p class="lead">Retention analysis, at-risk identification, engagement metrics, and intervention strategies.</p>
     <div class="chips">
-      <button class="chip" data-fill="success-input">DEMO Student F — psychology senior, GPA 2.05, working 30+ hours. What interventions do you recommend?</button>
-      <button class="chip" data-fill="success-input">DEMO Student B — bio sophomore, attendance dropping to 71%. What's the engagement plan?</button>
-      <button class="chip" data-fill="success-input">Compare risk levels across all students in the system. Who needs immediate attention?</button>
+      <button class="chip" data-fill="syllabot-input">When is the next assignment due in CSE 110?</button>
+      <button class="chip" data-fill="syllabot-input">What's the late policy for ENG 101 final drafts?</button>
+      <button class="chip" data-fill="syllabot-input">How is BIO 181 graded — and what counts toward the final?</button>
     </div>
-    <textarea id="success-input" placeholder="Ask about student risk assessment, retention strategies, or engagement…"></textarea>
+    <textarea id="syllabot-input" placeholder="Ask about due dates, grading, late policy, materials, integrity…"></textarea>
     <div class="btn-row">
-      <button class="btn" data-voice-for="success-input">🎤 Voice</button>
-      <button class="btn primary" data-submit="success">Ask Coach →</button>
+      <button class="btn" data-voice-for="syllabot-input">🎤 Voice</button>
+      <button class="btn primary" data-submit="syllabot">Ask Syllabot →</button>
     </div>
-    <div class="output" id="success-output"></div>
+    <div class="output" id="syllabot-output"></div>
   </section>
 
-  <!-- FINANCIAL AID -->
-  <section class="panel" id="panel-financial">
-    <h2>💰 Financial Aid Advisor</h2>
-    <p class="lead">FAFSA, scholarships, grants, loans, tuition planning, and cost-of-attendance strategy.</p>
+  <!-- PRACTICE -->
+  <section class="panel" id="panel-practice">
+    <h2>🧠 Practice AI</h2>
+    <p class="lead">Self-test on key concepts beyond the classroom — quizzes, explanations, follow-ups.</p>
+    <div class="field-row">
+      <label>Topic</label>
+      <select id="practice-topic"><option value="">— pick one —</option></select>
+    </div>
     <div class="chips">
-      <button class="chip" data-fill="financial-input">DEMO Student B — out-of-state bio sophomore. They have $28K in loans. What aid options can reduce borrowing?</button>
-      <button class="chip" data-fill="financial-input">DEMO Student D — in-state ME freshman with Pell Grant + merit scholarship. Are they maximizing their aid?</button>
-      <button class="chip" data-fill="financial-input">What are the key financial aid deadlines this semester? List them in order.</button>
+      <button class="chip" data-fill="practice-input">Give me one multiple-choice question on Python loops, medium difficulty.</button>
+      <button class="chip" data-fill="practice-input">Quiz me on rhetorical analysis basics — start easy.</button>
+      <button class="chip" data-fill="practice-input">Ask me one short-answer question about cell-membrane transport.</button>
     </div>
-    <textarea id="financial-input" placeholder="Ask about financial aid, scholarships, FAFSA, tuition planning…"></textarea>
+    <textarea id="practice-input" placeholder="Ask for a practice question, or answer one and ask why…"></textarea>
     <div class="btn-row">
-      <button class="btn" data-voice-for="financial-input">🎤 Voice</button>
-      <button class="btn primary" data-submit="financial">Ask Advisor →</button>
+      <button class="btn" data-voice-for="practice-input">🎤 Voice</button>
+      <button class="btn primary" data-submit="practice">Practice →</button>
     </div>
-    <div class="output" id="financial-output"></div>
+    <div class="output" id="practice-output"></div>
   </section>
 
-  <!-- CAREER SERVICES -->
-  <section class="panel" id="panel-career">
-    <h2>💼 Career Services Advisor</h2>
-    <p class="lead">Resume review, internship matching, interview prep, job market insights, and professional development.</p>
+  <!-- ASSIGNMENT -->
+  <section class="panel" id="panel-assignment">
+    <h2>🗂️ Assignment Coach</h2>
+    <p class="lead">Break major projects into milestones and tie them to real-world skills.</p>
+    <div class="field-row">
+      <label>Assignment</label>
+      <select id="assignment-id"><option value="">— pick one —</option></select>
+    </div>
     <div class="chips">
-      <button class="chip" data-fill="career-input">DEMO Student A — CS junior interested in AI/ML. What internships should they target for summer?</button>
-      <button class="chip" data-fill="career-input">DEMO Student E — business analytics junior with fintech internship. How should they leverage this for full-time?</button>
-      <button class="chip" data-fill="career-input">DEMO Student C — nursing senior. What's the job market look like for BSN graduates in Arizona?</button>
+      <button class="chip" data-fill="assignment-input">I haven't started the CSE 110 final project. Build me a 3-week plan.</button>
+      <button class="chip" data-fill="assignment-input">I have a draft for the ENG 101 argument essay but no outline. Where do I start?</button>
+      <button class="chip" data-fill="assignment-input">For BIO 181 Lab 8 — how should I structure the discussion section?</button>
     </div>
-    <textarea id="career-input" placeholder="Ask about career planning, internships, resume tips, or job market…"></textarea>
+    <textarea id="assignment-input" placeholder="Describe where you are stuck or what's coming up…"></textarea>
     <div class="btn-row">
-      <button class="btn" data-voice-for="career-input">🎤 Voice</button>
-      <button class="btn primary" data-submit="career">Ask Career →</button>
+      <button class="btn" data-voice-for="assignment-input">🎤 Voice</button>
+      <button class="btn primary" data-submit="assignment">Plan it →</button>
     </div>
-    <div class="output" id="career-output"></div>
+    <div class="output" id="assignment-output"></div>
   </section>
 
-  <!-- CAMPUS OPERATIONS -->
-  <section class="panel" id="panel-campus-ops">
-    <h2>🏛️ Campus Operations Manager</h2>
-    <p class="lead">Facilities management, classroom scheduling, event planning, space utilization, and sustainability.</p>
+  <!-- WRITING -->
+  <section class="panel" id="panel-writing">
+    <h2>✍️ Writing Guide</h2>
+    <p class="lead">Structured pre-submission feedback on clarity, organization, grammar, tone.</p>
+    <div class="field-row">
+      <label>Sample draft</label>
+      <select id="writing-draft"><option value="">— or paste your own below —</option></select>
+    </div>
+    <textarea id="writing-paste" placeholder="(Optional) paste your own draft here…" rows="6"></textarea>
     <div class="chips">
-      <button class="chip" data-fill="campus-input">Hayden Library utilization is at 78%. How can we optimize space usage during peak hours?</button>
-      <button class="chip" data-fill="campus-input">Memorial Union needs elevator modernization. What's the priority and timeline recommendation?</button>
-      <button class="chip" data-fill="campus-input">Compare sustainability features across Tempe campus facilities. Where are the gaps?</button>
+      <button class="chip" data-fill="writing-input">Give me structured feedback before I submit.</button>
+      <button class="chip" data-fill="writing-input">Focus on clarity and organization only.</button>
+      <button class="chip" data-fill="writing-input">Tone check — is this academic enough for an argument essay?</button>
     </div>
-    <textarea id="campus-input" placeholder="Ask about facilities, scheduling, events, maintenance, sustainability…"></textarea>
+    <textarea id="writing-input" placeholder="What kind of feedback do you want? (default: full structured review)"></textarea>
     <div class="btn-row">
-      <button class="btn" data-voice-for="campus-input">🎤 Voice</button>
-      <button class="btn primary" data-submit="campus">Ask Ops →</button>
+      <button class="btn" data-voice-for="writing-input">🎤 Voice</button>
+      <button class="btn primary" data-submit="writing">Get feedback →</button>
     </div>
-    <div class="output" id="campus-output"></div>
+    <div class="output" id="writing-output"></div>
   </section>
 
-  <!-- VISION: CAMPUS -->
-  <section class="panel" id="panel-vision-campus">
-    <h2>📷 Campus Facility Analysis</h2>
-    <p class="lead">Upload a photo of a campus building, classroom, or facility for AI-powered assessment.</p>
-    <div class="vision-layout">
-      <div class="drop-zone" id="campus-drop">
-        <span>📷 Click or drag a facility photo here</span>
-        <input type="file" id="campus-file" accept="image/*" style="display:none" />
-      </div>
-      <img id="campus-preview" class="preview-img" style="display:none" />
-      <div id="campus-samples" class="gallery"></div>
-      <textarea id="campus-notes" placeholder="Optional: notes about the facility…"></textarea>
-      <div class="btn-row">
-        <button class="btn primary" data-vision-submit="campus">Analyze →</button>
-        <button class="btn" data-vision-clear="campus">Clear</button>
-      </div>
-      <div class="output" id="campus-output-vision"></div>
+  <!-- ONBOARDING -->
+  <section class="panel" id="panel-onboarding">
+    <h2>🎒 Onboarding Assistant</h2>
+    <p class="lead">Help new hires ramp up — checklists, training, key systems, who to ask.</p>
+    <div class="field-row">
+      <label>Role</label>
+      <select id="onboarding-role"><option value="">— all roles —</option></select>
     </div>
+    <div class="chips">
+      <button class="chip" data-fill="onboarding-input">I'm a new academic advisor. What should I do in my first week?</button>
+      <button class="chip" data-fill="onboarding-input">Build me a 30/60/90 plan for a new IT support tech.</button>
+      <button class="chip" data-fill="onboarding-input">What systems do I need access to before I can advise students?</button>
+    </div>
+    <textarea id="onboarding-input" placeholder="Ask about checklists, training, systems, contacts…"></textarea>
+    <div class="btn-row">
+      <button class="btn" data-voice-for="onboarding-input">🎤 Voice</button>
+      <button class="btn primary" data-submit="onboarding">Guide me →</button>
+    </div>
+    <div class="output" id="onboarding-output"></div>
   </section>
 
-  <!-- VISION: STUDENT -->
-  <section class="panel" id="panel-vision-student">
-    <h2>📷 Student Engagement Analysis</h2>
-    <p class="lead">Upload a photo of a classroom, lab, or campus event for engagement assessment.</p>
-    <div class="vision-layout">
-      <div class="drop-zone" id="student-vision-drop">
-        <span>📷 Click or drag a classroom/event photo here</span>
-        <input type="file" id="student-vision-file" accept="image/*" style="display:none" />
-      </div>
-      <img id="student-vision-preview" class="preview-img" style="display:none" />
-      <div id="student-vision-samples" class="gallery"></div>
-      <textarea id="student-vision-notes" placeholder="Optional: context about the session or event…"></textarea>
-      <div class="btn-row">
-        <button class="btn primary" data-vision-submit="student-vision">Analyze →</button>
-        <button class="btn" data-vision-clear="student-vision">Clear</button>
-      </div>
-      <div class="output" id="student-vision-output"></div>
+  <!-- CONCIERGE -->
+  <section class="panel" id="panel-concierge">
+    <h2>💬 Concierge AI</h2>
+    <p class="lead">Unify HR, IT, parking, library, and registrar into one conversational interface.</p>
+    <div class="chips">
+      <button class="chip" data-fill="concierge-input">How do I appeal a parking ticket?</button>
+      <button class="chip" data-fill="concierge-input">I lost access to MFA — how do I reset my ASURITE password?</button>
+      <button class="chip" data-fill="concierge-input">Book me a study room at Hayden for tomorrow afternoon.</button>
+      <button class="chip" data-fill="concierge-input">Where do I submit an HR question about my benefits?</button>
     </div>
+    <textarea id="concierge-input" placeholder="Ask 'where do I…' — parking, IT, HR, library, registrar…"></textarea>
+    <div class="btn-row">
+      <button class="btn" data-voice-for="concierge-input">🎤 Voice</button>
+      <button class="btn primary" data-submit="concierge">Ask Concierge →</button>
+    </div>
+    <div class="output" id="concierge-output"></div>
+  </section>
+
+  <!-- KNOWLEDGE BASE -->
+  <section class="panel" id="panel-kb">
+    <h2>📚 Knowledge Base AI</h2>
+    <p class="lead">Find departmental procedures and policies instantly.</p>
+    <div class="field-row">
+      <label>Article</label>
+      <select id="kb-article"><option value="">— search all —</option></select>
+    </div>
+    <div class="chips">
+      <button class="chip" data-fill="kb-input">What's the deadline to file a late-add petition?</button>
+      <button class="chip" data-fill="kb-input">What's our policy on parent calls about grades?</button>
+      <button class="chip" data-fill="kb-input">What triggers academic probation vs dismissal?</button>
+    </div>
+    <textarea id="kb-input" placeholder="Ask about department policies and procedures…"></textarea>
+    <div class="btn-row">
+      <button class="btn" data-voice-for="kb-input">🎤 Voice</button>
+      <button class="btn primary" data-submit="kb">Find it →</button>
+    </div>
+    <div class="output" id="kb-output"></div>
+  </section>
+
+  <!-- DEVELOPMENT COACH -->
+  <section class="panel" id="panel-dev">
+    <h2>🌱 Development AI Coach</h2>
+    <p class="lead">On-demand support for goals, communication, and reflection.</p>
+    <div class="field-row">
+      <label>Employee</label>
+      <select id="dev-employee"><option value="">— pick one —</option></select>
+    </div>
+    <div class="chips">
+      <button class="chip" data-fill="dev-input">Help me work on goal G1 this week — what's one small action?</button>
+      <button class="chip" data-fill="dev-input">Give me a reflection prompt for end of week.</button>
+      <button class="chip" data-fill="dev-input">I want to be more concise in email replies. Coach me.</button>
+    </div>
+    <textarea id="dev-input" placeholder="Ask about a goal, growth area, or reflection prompt…"></textarea>
+    <div class="btn-row">
+      <button class="btn" data-voice-for="dev-input">🎤 Voice</button>
+      <button class="btn primary" data-submit="dev">Coach me →</button>
+    </div>
+    <div class="output" id="dev-output"></div>
+  </section>
+
+  <!-- HYBRID AI / M365 MOCK -->
+  <section class="panel" id="panel-hybrid">
+    <h2>⚡ Hybrid AI · Microsoft 365 (mock)</h2>
+    <p class="lead">
+      Pick a scenario — we'll simulate retrieving Outlook, Teams, and SharePoint
+      context (no real M365 connection), then compose the answer on-device.
+    </p>
+    <div class="field-row">
+      <label>Scenario</label>
+      <select id="hybrid-scenario"></select>
+    </div>
+    <div id="hybrid-cards" class="m365-cards"></div>
+    <textarea id="hybrid-input" placeholder="What do you want to do with this context? (default: scenario's example prompt)"></textarea>
+    <div class="btn-row">
+      <button class="btn" data-voice-for="hybrid-input">🎤 Voice</button>
+      <button class="btn primary" data-submit="hybrid">Run Hybrid →</button>
+    </div>
+    <div class="output" id="hybrid-output"></div>
+    <div id="hybrid-meta" class="hybrid-meta"></div>
   </section>
 
   <!-- NPU DASHBOARD -->
@@ -259,7 +325,7 @@
     </div>
     <h3 class="dash-h3">Recent Inferences</h3>
     <table class="log-table">
-      <thead><tr><th>Time</th><th>Persona</th><th>Tokens</th><th>Latency</th><th>HW</th></tr></thead>
+      <thead><tr><th>Time</th><th>Use case</th><th>Tokens</th><th>Latency</th><th>HW</th></tr></thead>
       <tbody id="log-body"></tbody>
     </table>
   </section>
@@ -268,7 +334,7 @@
 <footer class="disclaimer">
   Demo / sample code — fictitious data. Not affiliated with or endorsed by
   Arizona State University. AI outputs may be incorrect; verify all
-  recommendations. Built on Microsoft Foundry Local + Qualcomm QNN.
+  recommendations. Built on Microsoft Foundry Local + Qualcomm QNN / Intel OpenVINO.
 </footer>
 
 <script src="/static/js/app.js"></script>

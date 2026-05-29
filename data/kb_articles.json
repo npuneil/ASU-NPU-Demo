@@ -1,0 +1,80 @@
+{
+  "department": "University College — Advising (DEMO)",
+  "articles": [
+    {
+      "id": "KB-2041",
+      "title": "Late-add petitions after the deadline",
+      "last_reviewed": "2025-08-12",
+      "owner": "Director of Advising",
+      "summary": "How and when an advisor can submit a late-add petition on behalf of a student.",
+      "policy": [
+        "Petitions accepted within 5 weeks of the term start.",
+        "Requires instructor approval (email is sufficient).",
+        "Requires a documented, qualifying reason (medical, advising error, military).",
+        "Submitted via PeopleSoft > Records > Petition Workflow."
+      ],
+      "limits": "Hard cutoff at week 6 — no petitions accepted after.",
+      "related": ["KB-2042", "KB-2058"]
+    },
+    {
+      "id": "KB-2042",
+      "title": "Late-drop petitions and 'W' grades",
+      "last_reviewed": "2025-08-12",
+      "owner": "Director of Advising",
+      "summary": "Process for late drops and how 'W' grades are recorded.",
+      "policy": [
+        "Standard drop deadline is end of week 7.",
+        "Late drop requires petition with documented hardship.",
+        "If approved, transcript shows 'W' (no GPA impact).",
+        "Multiple late drops (3+) trigger an academic standing review."
+      ],
+      "limits": "No late drops in summer sessions shorter than 5 weeks.",
+      "related": ["KB-2041", "KB-2073"]
+    },
+    {
+      "id": "KB-2058",
+      "title": "FERPA and parent inquiries",
+      "last_reviewed": "2024-11-04",
+      "owner": "Registrar / Compliance",
+      "summary": "How to handle parent or third-party requests for student information.",
+      "policy": [
+        "Never disclose student records to parents without a signed FERPA release on file.",
+        "A FERPA release can be added via MyASU > Profile > Information Release.",
+        "Even with a release, prefer to redirect to the student.",
+        "Health/safety emergency exception requires a Dean-of-Students consult."
+      ],
+      "limits": "Releases expire annually unless renewed.",
+      "related": ["KB-2061"]
+    },
+    {
+      "id": "KB-2061",
+      "title": "Documentation standards for advising notes",
+      "last_reviewed": "2025-02-19",
+      "owner": "Director of Advising",
+      "summary": "What must (and must not) go into Salesforce Advising notes.",
+      "policy": [
+        "Notes must be objective, concise, action-oriented.",
+        "No diagnosis, opinion, or hearsay.",
+        "Tag the appointment type and any referrals made.",
+        "Notes are FERPA records — assume the student will read them."
+      ],
+      "limits": "Edits older than 24 hours require manager approval.",
+      "related": ["KB-2058"]
+    },
+    {
+      "id": "KB-2073",
+      "title": "Academic standing — probation and dismissal",
+      "last_reviewed": "2025-01-22",
+      "owner": "Director of Advising",
+      "summary": "Triggers and timelines for probation, continued probation, and dismissal.",
+      "policy": [
+        "Probation = cumulative GPA < 2.00 at end of term.",
+        "Continued probation if next-term GPA ≥ 2.00 but cumulative still < 2.00.",
+        "Dismissal recommended after 2 consecutive terms below 2.00 cumulative.",
+        "All status changes require the standardized intervention plan (form ADV-007)."
+      ],
+      "limits": "Dismissal is final after college dean's signature; appeals go to the standing committee.",
+      "related": ["KB-2042"]
+    }
+  ]
+}

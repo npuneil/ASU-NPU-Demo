@@ -1,0 +1,18 @@
+{
+  "drafts": [
+    {
+      "id": "draft-jordan-arg",
+      "student": "Jordan (DEMO)",
+      "assignment": "ENG 101 Project 2 — Argument Essay",
+      "title": "Why Universities Should Adopt On-Device AI",
+      "text": "In todays society alot of universities are using AI in many ways. Some people think this is good and some people think its bad. I think on-device AI is good because its private. When students use cloud AI tools their data goes somewhere and we don't know where. With on-device AI everything stays on the laptop which is better. Also it's faster because there's no internet needed. Some critics say that on-device AI isn't as smart as cloud AI which is true. However for most school work the small models are good enough. In conclusion universities should use on-device AI for student services and admin tasks because of privacy speed and cost. Their are many reasons but those are the main ones. Going forward we will see more of this trend in higher ed."
+    },
+    {
+      "id": "draft-priya-rhet",
+      "student": "Priya (DEMO)",
+      "assignment": "ENG 101 Project 1 — Rhetorical Analysis",
+      "title": "An Analysis of Michael Crow's 2023 Convocation Address",
+      "text": "Michael Crow opens his 2023 convocation by asking the incoming class a simple question: 'What do you intend to do?' The framing is significant — it casts students as agents from the outset rather than recipients of an education. Crow leans heavily on ethos, citing ASU's national rankings and the 'New American University' charter. He also uses repetition ('we measure ourselves not by who we exclude but by who we include') to anchor his appeal in the institutional identity. Where the speech is weakest is in pathos: the personal anecdotes feel rehearsed and the audience response is muted in those moments. Logos appears mainly in the form of statistics — 145,000 students, 90+ degrees online — which are persuasive but do little to address the more difficult questions of cost and outcomes. Overall the speech succeeds at unifying the audience around a shared aspiration but glosses over the friction students will encounter."
+    }
+  ]
+}

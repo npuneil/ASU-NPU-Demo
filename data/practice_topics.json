@@ -1,0 +1,55 @@
+{
+  "topics": [
+    {
+      "id": "py-loops",
+      "course": "CSE 110",
+      "title": "Python loops & iteration",
+      "key_concepts": [
+        "for vs while",
+        "range(start, stop, step)",
+        "loop accumulator pattern",
+        "break and continue",
+        "nested loops"
+      ],
+      "sample_questions": [
+        {"q": "What does range(2, 10, 3) produce?", "a": "2, 5, 8"},
+        {"q": "When should you prefer a while loop over for?", "a": "When the number of iterations isn't known in advance, e.g., reading until EOF or polling a condition."},
+        {"q": "What's the difference between break and continue?", "a": "break exits the enclosing loop entirely; continue skips to the next iteration of the same loop."}
+      ]
+    },
+    {
+      "id": "rhetorical-analysis",
+      "course": "ENG 101",
+      "title": "Rhetorical analysis basics",
+      "key_concepts": [
+        "ethos, pathos, logos",
+        "exigence and audience",
+        "rhetorical situation (Bitzer)",
+        "claim vs evidence vs warrant",
+        "tone and stance"
+      ],
+      "sample_questions": [
+        {"q": "Define ethos in one sentence.", "a": "Ethos is the appeal to the speaker's credibility, character, or authority on the topic."},
+        {"q": "Why does audience matter when analyzing an argument?", "a": "Because the same claim can be persuasive or alienating depending on the audience's values, prior knowledge, and stakes."},
+        {"q": "What's a 'warrant' in Toulmin's model?", "a": "The unstated assumption that connects the evidence to the claim — what the audience must accept for the argument to work."}
+      ]
+    },
+    {
+      "id": "cell-membranes",
+      "course": "BIO 181",
+      "title": "Cell membrane structure & transport",
+      "key_concepts": [
+        "phospholipid bilayer",
+        "passive vs active transport",
+        "osmosis and tonicity (hyper/hypo/iso)",
+        "membrane proteins (channels, carriers, pumps)",
+        "Na+/K+ pump"
+      ],
+      "sample_questions": [
+        {"q": "What drives osmosis?", "a": "A water-potential gradient — water moves from regions of higher water potential (lower solute concentration) to lower."},
+        {"q": "Is the Na+/K+ pump active or passive transport?", "a": "Active — it uses ATP to move ions against their concentration gradients (3 Na+ out, 2 K+ in)."},
+        {"q": "Why is the bilayer described as a 'fluid mosaic'?", "a": "Because the lipids and embedded proteins move laterally within the membrane, giving it both fluid and patchwork character."}
+      ]
+    }
+  ]
+}

@@ -35,14 +35,15 @@ from pathlib import Path
 from flask import Flask, jsonify, render_template, request
 
 from prompts.personas import (
-    ACADEMIC_ADVISOR,
-    CAMPUS_OPERATIONS,
-    CAREER_SERVICES,
-    FINANCIAL_AID,
-    RESEARCH_ASSISTANT,
-    STUDENT_SUCCESS,
-    VISION_CAMPUS,
-    VISION_STUDENT,
+    SYLLABOT,
+    PRACTICE_AI,
+    ASSIGNMENT_AI,
+    WRITING_GUIDE,
+    ONBOARDING_ASSISTANT,
+    CONCIERGE_AI,
+    KNOWLEDGE_BASE,
+    DEVELOPMENT_COACH,
+    HYBRID_CONCIERGE,
 )
 
 try:
@@ -91,12 +92,15 @@ def _load_json(name: str) -> dict:
         return {}
 
 
-STUDENTS = _load_json("students.json")
-COURSES = _load_json("courses.json")
-RESEARCH = _load_json("research.json")
-CAMPUS = _load_json("campus.json")
-FINANCIAL = _load_json("financial_aid.json")
-CAREERS = _load_json("careers.json")
+SYLLABI = _load_json("syllabi.json")
+PRACTICE = _load_json("practice_topics.json")
+ASSIGNMENTS = _load_json("assignments.json")
+WRITING = _load_json("writing_samples.json")
+ONBOARDING = _load_json("onboarding_tracks.json")
+CONCIERGE = _load_json("concierge_kb.json")
+KB = _load_json("kb_articles.json")
+DEV_GOALS = _load_json("dev_goals.json")
+M365 = _load_json("m365_mock.json")
 
 
 # ---------------------------------------------------------------------------
@@ -186,9 +190,21 @@ def _family_rank(mid: str) -> int:
     phi4 = "phi-4-mini" in m
     phi3 = "phi-3" in m
     phi = "phi" in m
-    openvino = "openvino" in m
+    # Prefer the runtime that matches the silicon: QNN/NPU variants on
+    # Snapdragon X, OpenVINO variants on Intel Core Ultra. Falls through
+    # to a neutral score on unknown silicon so model discovery still picks
+    # something reasonable.
+    qnn = any(t in m for t in ("qnn", "npu", "directml", "qualcomm"))
+    ov = "openvino" in m
+    sil = (SILICON or "").lower() if "SILICON" in globals() else ""
+    if sil in ("qualcomm", "arm64", "snapdragon"):
+        runtime_bonus = 0 if qnn else (1 if not ov else 2)
+    elif sil in ("intel",):
+        runtime_bonus = 0 if ov else (1 if not qnn else 2)
+    else:
+        runtime_bonus = 0 if (qnn or ov) else 1
     base = 0 if phi4 else (2 if phi3 else (4 if phi else 6))
-    return base + (0 if openvino else 1)
+    return base + runtime_bonus
 
 
 def _probe(mid: str, timeout: int) -> bool:
@@ -256,7 +272,7 @@ def init_foundry() -> None:
                     use_cli_inference = True
                     foundry_ok = True
                     hardware_label = "NPU"
-                    print(f"[STARTUP] ✓ NPU model ready via CLI: {model_id}")
+                    print(f"[STARTUP] [OK] NPU model ready via CLI: {model_id}")
                     return
                 else:
                     print(f"[STARTUP] CLI probe failed for {alias}: exit {result.returncode}")
@@ -314,7 +330,7 @@ def init_foundry() -> None:
             model_id = mid
             foundry_ok = True
             hardware_label = tier_name
-            print(f"[STARTUP] ✓ Model ready: {model_id} on {tier_name}")
+            print(f"[STARTUP] [OK] Model ready: {model_id} on {tier_name}")
             return
         print(f"[STARTUP] Skipping {mid}; trying next.")
 
@@ -558,84 +574,172 @@ def _run_inference(system_prompt: str, user_prompt: str, max_tokens: int = 480, 
 
 
 # ---------------------------------------------------------------------------
-# Persona context helpers — keep prompts grounded in the JSON data.
+# Use-case context helpers — keep prompts grounded in the JSON data.
 # ---------------------------------------------------------------------------
-def _students_brief() -> str:
-    rows = []
-    for s in STUDENTS.get("students", []):
-        aid = s.get("financial_aid", {})
-        rows.append(
-            f"- {s['name']} ({s['major']}, {s['year']}, {s['campus']}): "
-            f"GPA {s['gpa']}, {s['credits_completed']}/{s['credits_required']} credits, "
-            f"engagement {s['engagement_score']}, attendance {s['attendance_rate']}, "
-            f"risk: {s['risk_level']}"
-        )
-    return "STUDENTS (fictitious):\n" + "\n".join(rows)
-
-
-def _courses_brief() -> str:
-    rows = []
-    for c in COURSES.get("courses", []):
-        prereqs = ", ".join(c.get("prerequisites", [])) or "none"
-        rows.append(
-            f"- {c['code']}: {c['title']} ({c['credits']}cr, {c['level']}), "
-            f"prereqs: {prereqs}, seats: {c['seats_available']}/{c['seats_total']}, "
-            f"{c['schedule']}, {c['modality']}"
-        )
-    return "COURSES (fictitious):\n" + "\n".join(rows)
-
-
-def _research_brief(area_id: str | None = None) -> str:
-    areas = RESEARCH.get("research_areas", [])
-    if area_id:
-        match = [a for a in areas if a["id"] == area_id]
+def _syllabus_brief(course_code: str | None = None) -> str:
+    courses = SYLLABI.get("courses", [])
+    if course_code:
+        match = [c for c in courses if c["code"].lower() == course_code.lower()]
         if match:
-            areas = match
+            courses = match
     rows = []
-    for r in areas[:3]:
-        methods = ", ".join(r["methods"][:3])
-        rows.append(
-            f"- {r['title']} ({r['school']}): PI {r['pi']}, "
-            f"funding: {r['funding_status']}, {r['grad_students']} grad students, "
-            f"methods: {methods}"
-        )
-    return "RESEARCH (fictitious):\n" + "\n".join(rows)
+    for c in courses:
+        rows.append(f"\n--- {c['code']}: {c['title']} ({c['term']}) ---")
+        rows.append(f"Instructor: {c['instructor']}  |  Office hours: {c['office_hours']}")
+        grading = ", ".join(f"{k} {v}" for k, v in c.get("grading", {}).items())
+        rows.append(f"Grading: {grading}")
+        rows.append("Due dates:")
+        for d in c.get("due_dates", []):
+            rows.append(f"  • {d['item']} — due {d['due']} ({d['submit']})")
+        rows.append(f"Late policy: {c.get('late_policy', '—')}")
+        rows.append("Materials: " + "; ".join(c.get("materials", [])))
+        rows.append(f"Integrity: {c.get('integrity', '—')}")
+        rows.append(f"Exam format: {c.get('exam_format', '—')}")
+    return "SYLLABUS DATA (fictitious):" + "\n".join(rows)
 
 
-def _campus_brief() -> str:
+def _practice_brief(topic_id: str | None = None) -> str:
+    topics = PRACTICE.get("topics", [])
+    if topic_id:
+        match = [t for t in topics if t["id"] == topic_id]
+        if match:
+            topics = match
     rows = []
-    for f in CAMPUS.get("facilities", []):
-        features = ", ".join(f.get("features", [])[:3])
-        rows.append(
-            f"- {f['name']} ({f['campus']}, {f['type']}): cap {f['capacity']}, "
-            f"util {f['utilization_avg']:.0%}, {f['maintenance_status']}"
-        )
-    return "FACILITIES (fictitious):\n" + "\n".join(rows)
+    for t in topics:
+        rows.append(f"\n--- {t['title']} ({t['course']}) [id: {t['id']}] ---")
+        rows.append("Key concepts: " + "; ".join(t.get("key_concepts", [])))
+        rows.append("Sample Q&A bank:")
+        for q in t.get("sample_questions", []):
+            rows.append(f"  Q: {q['q']}\n  A: {q['a']}")
+    return "PRACTICE TOPIC BANK (fictitious):" + "\n".join(rows)
 
 
-def _financial_brief() -> str:
+def _assignments_brief(assignment_id: str | None = None) -> str:
+    items = ASSIGNMENTS.get("assignments", [])
+    if assignment_id:
+        match = [a for a in items if a["id"] == assignment_id]
+        if match:
+            items = match
     rows = []
-    for p in FINANCIAL.get("aid_programs", []):
-        rows.append(
-            f"- {p['name']} ({p['type']}): {p['amount_range']}, "
-            f"deadline: {p['deadline']}"
-        )
-    tuition = FINANCIAL.get("tuition_snapshot", {})
-    rows.append(f"\nTuition: in-state {tuition.get('in_state_full_time', 'N/A')}, "
-                f"out-of-state {tuition.get('out_of_state_full_time', 'N/A')}, "
-                f"online {tuition.get('asu_online', 'N/A')}")
-    return "FINANCIAL AID (fictitious):\n" + "\n".join(rows)
+    for a in items:
+        rows.append(f"\n--- {a['course']} · {a['title']} ---")
+        rows.append(f"Due: {a['due']}  |  Weight: {a['weight']}")
+        rows.append(f"Summary: {a['summary']}")
+        rows.append("Deliverables: " + "; ".join(a.get("deliverables", [])))
+        rows.append("Rubric focus: " + ", ".join(a.get("rubric_focus", [])))
+        rows.append(f"Real-world tie: {a.get('real_world_tie', '—')}")
+    return "ASSIGNMENT DATA (fictitious):" + "\n".join(rows)
 
 
-def _careers_brief() -> str:
+def _writing_brief(draft_id: str | None = None) -> str:
+    drafts = WRITING.get("drafts", [])
+    if draft_id:
+        match = [d for d in drafts if d["id"] == draft_id]
+        if match:
+            drafts = match
     rows = []
-    for i in CAREERS.get("industry_insights", []):
-        employers = ", ".join(i.get("top_employers_at_asu", [])[:3])
-        rows.append(
-            f"- {i['field']}: demand {i['demand']}, avg start ${i['avg_starting_salary']}, "
-            f"top employers: {employers}"
-        )
-    return "CAREER DATA (fictitious):\n" + "\n".join(rows)
+    for d in drafts:
+        rows.append(f"\n--- {d['student']} · {d['assignment']} ---")
+        rows.append(f"Title: {d['title']}")
+        rows.append("DRAFT TEXT:")
+        rows.append(d["text"])
+    return "STUDENT DRAFT(S) (fictitious):" + "\n".join(rows)
+
+
+def _onboarding_brief(role: str | None = None) -> str:
+    tracks = ONBOARDING.get("tracks", [])
+    if role:
+        match = [t for t in tracks if role.lower() in t["role"].lower()]
+        if match:
+            tracks = match
+    rows = []
+    for t in tracks:
+        rows.append(f"\n--- {t['role']} · {t['department']} ---")
+        rows.append(f"Manager: {t['manager']}")
+        rows.append("Day-1 checklist: " + "; ".join(t.get("first_day_checklist", [])))
+        rows.append("30-day: " + "; ".join(t.get("30_day", [])))
+        rows.append("60-day: " + "; ".join(t.get("60_day", [])))
+        rows.append("90-day: " + "; ".join(t.get("90_day", [])))
+        rows.append("Key systems: " + ", ".join(t.get("key_systems", [])))
+        contacts = "; ".join(f"{c['who']} → {c['for']}" for c in t.get("go_to_contacts", []))
+        rows.append("Contacts: " + contacts)
+    return "ONBOARDING TRACKS (fictitious):" + "\n".join(rows)
+
+
+def _concierge_brief() -> str:
+    rows = []
+    for t in CONCIERGE.get("topics", []):
+        rows.append(f"\n--- {t['topic']} ({t['owner']}) ---")
+        rows.append(f"System: {t['system']}  |  SLA: {t.get('sla', '—')}  |  Hours: {t.get('office_hours', '—')}")
+        rows.append("Steps:")
+        for i, s in enumerate(t.get("steps", []), 1):
+            rows.append(f"  {i}. {s}")
+        if t.get("notes"):
+            rows.append(f"Notes: {t['notes']}")
+    return "CONCIERGE DIRECTORY (fictitious):" + "\n".join(rows)
+
+
+def _kb_brief(article_id: str | None = None) -> str:
+    arts = KB.get("articles", [])
+    if article_id:
+        match = [a for a in arts if a["id"].lower() == article_id.lower()]
+        if match:
+            arts = match
+    rows = [f"Department: {KB.get('department', '—')}"]
+    for a in arts:
+        rows.append(f"\n--- {a['id']}: {a['title']} (last reviewed {a['last_reviewed']}, owner: {a['owner']}) ---")
+        rows.append(f"Summary: {a['summary']}")
+        rows.append("Policy:")
+        for p in a.get("policy", []):
+            rows.append(f"  • {p}")
+        rows.append(f"Limits: {a.get('limits', '—')}")
+        rows.append("Related: " + ", ".join(a.get("related", [])))
+    return "KB ARTICLES (fictitious):\n" + "\n".join(rows)
+
+
+def _dev_brief(employee: str | None = None) -> str:
+    sheets = DEV_GOALS.get("goal_sheets", [])
+    if employee:
+        match = [s for s in sheets if employee.lower() in s["employee"].lower()]
+        if match:
+            sheets = match
+    rows = []
+    for s in sheets:
+        rows.append(f"\n--- {s['employee']} · {s['role']} ---")
+        for g in s.get("goals", []):
+            rows.append(f"  [{g['id']}] ({g['category']}) {g['statement']}")
+            rows.append(f"      now: {g['current_state']}")
+            rows.append(f"      success: {g['success_signal']}")
+    rows.append("\nCompetency framework: " + ", ".join(DEV_GOALS.get("competency_framework", [])))
+    rows.append("Reflection prompts:")
+    for p in DEV_GOALS.get("reflection_prompts", []):
+        rows.append(f"  • {p}")
+    return "DEVELOPMENT DATA (fictitious):" + "\n".join(rows)
+
+
+def _hybrid_context(scenario_id: str | None) -> tuple[str, list[dict]]:
+    """Return (context_text, raw_cards) for a Hybrid AI scenario."""
+    scenarios = M365.get("scenarios", [])
+    scen = None
+    if scenario_id:
+        scen = next((s for s in scenarios if s["id"] == scenario_id), None)
+    if not scen and scenarios:
+        scen = scenarios[0]
+    if not scen:
+        return ("(no context cards available)", [])
+    cards = scen.get("context", [])
+    rows = [f"SCENARIO: {scen.get('label', '')}"]
+    rows.append("\nCONTEXT CARDS retrieved from Microsoft 365 (mock):")
+    for c in cards:
+        rows.append(f"\n[{c['source']}] {c.get('title', '')}")
+        if c.get("from"):
+            rows.append(f"  from: {c['from']}")
+        if c.get("modified_by"):
+            rows.append(f"  modified by: {c['modified_by']} ({c.get('modified', '')})")
+        if c.get("received"):
+            rows.append(f"  received: {c['received']}")
+        rows.append(f"  snippet: {c.get('snippet', '')}")
+    return ("\n".join(rows), cards)
 
 
 # ---------------------------------------------------------------------------
@@ -713,9 +817,65 @@ def api_metrics():
     })
 
 
-@app.route("/api/data/research")
-def api_data_research():
-    return jsonify({"areas": RESEARCH.get("research_areas", [])})
+@app.route("/api/data/syllabi")
+def api_data_syllabi():
+    courses = SYLLABI.get("courses", [])
+    return jsonify({"courses": [{"code": c["code"], "title": c["title"], "term": c["term"]} for c in courses]})
+
+
+@app.route("/api/data/practice")
+def api_data_practice():
+    topics = PRACTICE.get("topics", [])
+    return jsonify({"topics": [{"id": t["id"], "title": t["title"], "course": t["course"]} for t in topics]})
+
+
+@app.route("/api/data/assignments")
+def api_data_assignments():
+    items = ASSIGNMENTS.get("assignments", [])
+    return jsonify({"assignments": [{"id": a["id"], "course": a["course"], "title": a["title"], "due": a["due"]} for a in items]})
+
+
+@app.route("/api/data/writing")
+def api_data_writing():
+    drafts = WRITING.get("drafts", [])
+    return jsonify({"drafts": [{"id": d["id"], "label": f"{d['student']} — {d['title']}"} for d in drafts]})
+
+
+@app.route("/api/data/onboarding")
+def api_data_onboarding():
+    tracks = ONBOARDING.get("tracks", [])
+    return jsonify({"roles": [t["role"] for t in tracks]})
+
+
+@app.route("/api/data/kb")
+def api_data_kb():
+    arts = KB.get("articles", [])
+    return jsonify({
+        "department": KB.get("department"),
+        "articles": [{"id": a["id"], "title": a["title"]} for a in arts],
+    })
+
+
+@app.route("/api/data/dev")
+def api_data_dev():
+    sheets = DEV_GOALS.get("goal_sheets", [])
+    return jsonify({"employees": [s["employee"] for s in sheets]})
+
+
+@app.route("/api/data/hybrid")
+def api_data_hybrid():
+    scenarios = M365.get("scenarios", [])
+    return jsonify({
+        "scenarios": [
+            {
+                "id": s["id"],
+                "label": s["label"],
+                "user_prompt_example": s.get("user_prompt_example", ""),
+                "context": s.get("context", []),
+            }
+            for s in scenarios
+        ]
+    })
 
 
 SAMPLE_IMAGES = [
@@ -753,152 +913,131 @@ def api_samples():
 
 
 # ---------------------------------------------------------------------------
-# Persona endpoints
+# Use-case endpoints (Empower 2026: 8 ASU AI use cases + Hybrid mock)
 # ---------------------------------------------------------------------------
 def _user_text(req) -> str:
     data = req.get_json(force=True, silent=True) or {}
     return (data.get("message") or data.get("text") or "").strip()
 
 
-@app.route("/api/advisor", methods=["POST"])
-def api_advisor():
-    user = _user_text(request)
+def _user_payload(req) -> dict:
+    return req.get_json(force=True, silent=True) or {}
+
+
+# ---- Student-facing ----
+@app.route("/api/syllabot", methods=["POST"])
+def api_syllabot():
+    data = _user_payload(request)
+    user = (data.get("message") or "").strip()
+    course = data.get("course") or ""
     if not user:
         return jsonify({"error": "Empty message"}), 400
-    grounded = f"{user}\n\n{_students_brief()}\n\n{_courses_brief()}"
-    return jsonify(_run_inference(ACADEMIC_ADVISOR, grounded, max_tokens=320, persona="advisor"))
+    grounded = f"{user}\n\n{_syllabus_brief(course)}"
+    return jsonify(_run_inference(SYLLABOT, grounded, max_tokens=280, persona="syllabot"))
 
 
-@app.route("/api/research", methods=["POST"])
-def api_research():
-    data = request.get_json(force=True, silent=True) or {}
-    user = (data.get("message") or data.get("text") or "").strip()
-    area = data.get("area", "")
+@app.route("/api/practice", methods=["POST"])
+def api_practice():
+    data = _user_payload(request)
+    user = (data.get("message") or "").strip()
+    topic = data.get("topic") or ""
     if not user:
         return jsonify({"error": "Empty message"}), 400
-    grounded = f"{user}\n\n{_research_brief(area)}"
-    return jsonify(_run_inference(RESEARCH_ASSISTANT, grounded, max_tokens=340, persona="research"))
+    grounded = f"{user}\n\n{_practice_brief(topic)}"
+    return jsonify(_run_inference(PRACTICE_AI, grounded, max_tokens=280, persona="practice"))
 
 
-@app.route("/api/success", methods=["POST"])
-def api_success():
-    user = _user_text(request)
+@app.route("/api/assignment", methods=["POST"])
+def api_assignment():
+    data = _user_payload(request)
+    user = (data.get("message") or "").strip()
+    aid = data.get("assignment") or ""
     if not user:
         return jsonify({"error": "Empty message"}), 400
-    grounded = f"{user}\n\n{_students_brief()}"
-    return jsonify(_run_inference(STUDENT_SUCCESS, grounded, max_tokens=320, persona="success"))
+    grounded = f"{user}\n\n{_assignments_brief(aid)}"
+    return jsonify(_run_inference(ASSIGNMENT_AI, grounded, max_tokens=360, persona="assignment"))
 
 
-@app.route("/api/financial", methods=["POST"])
-def api_financial():
-    user = _user_text(request)
-    if not user:
-        return jsonify({"error": "Empty message"}), 400
-    grounded = f"{user}\n\n{_financial_brief()}\n\n{_students_brief()}"
-    return jsonify(_run_inference(FINANCIAL_AID, grounded, max_tokens=340, persona="financial"))
-
-
-@app.route("/api/career", methods=["POST"])
-def api_career():
-    user = _user_text(request)
-    if not user:
-        return jsonify({"error": "Empty message"}), 400
-    grounded = f"{user}\n\n{_careers_brief()}\n\n{_students_brief()}"
-    return jsonify(_run_inference(CAREER_SERVICES, grounded, max_tokens=320, persona="career"))
-
-
-@app.route("/api/campus", methods=["POST"])
-def api_campus():
-    user = _user_text(request)
-    if not user:
-        return jsonify({"error": "Empty message"}), 400
-    grounded = f"{user}\n\n{_campus_brief()}"
-    return jsonify(_run_inference(CAMPUS_OPERATIONS, grounded, max_tokens=320, persona="campus"))
-
-
-# ---------------------------------------------------------------------------
-# Voice / Vision endpoints
-# ---------------------------------------------------------------------------
-@app.route("/api/transcribe", methods=["POST"])
-def api_transcribe():
-    # Voice input now handled client-side via Web Speech API (browser-native).
-    # This endpoint kept for backward compatibility.
-    return jsonify({"error": "Voice is handled by browser-native speech recognition (Web Speech API). No server-side transcription needed."}), 200
-
-
-@app.route("/api/vision/campus", methods=["POST"])
-def api_vision_campus():
-    return _handle_vision(VISION_CAMPUS, "campus")
-
-
-@app.route("/api/vision/student", methods=["POST"])
-def api_vision_student():
-    return _handle_vision(VISION_STUDENT, "student")
-
-
-def _handle_vision(prompt: str, category: str):
-    """Analyze a campus/student image using NPU text model.
-
-    For sample images we use rich pre-written descriptions as context.
-    For uploaded images we use the filename + any user notes.
-    The NPU text model then generates a structured analysis.
-    """
-    notes = ""
-    image_description = ""
-
-    image_file = request.files.get("image")
-    if image_file:
-        # Uploaded file — use filename and any notes as context
-        fname = image_file.filename or "uploaded_image"
-        notes = request.form.get("message", "").strip()
-        image_description = (
-            f"A user-uploaded photo named '{fname}' of a university {category} scene."
-        )
-        if notes:
-            image_description += f" The user describes it as: {notes}"
+@app.route("/api/writing", methods=["POST"])
+def api_writing():
+    data = _user_payload(request)
+    user = (data.get("message") or "").strip() or "Please review this draft and give structured feedback."
+    draft = data.get("draft") or ""
+    inline = data.get("draft_text") or ""
+    if not draft and not inline:
+        return jsonify({"error": "Pick a sample draft or paste text."}), 400
+    if inline:
+        context = "STUDENT DRAFT (pasted by user):\n" + inline
     else:
-        data = request.get_json(force=True, silent=True) or {}
-        sample_name = data.get("sample")
-        notes = data.get("message", "").strip()
-        if not sample_name:
-            return jsonify({"error": "No image provided"}), 400
-        # Find sample by name and use its rich description
-        sample = next((s for s in SAMPLE_IMAGES if s["name"] == sample_name), None)
-        if not sample:
-            return jsonify({"error": f"Sample '{sample_name}' not found"}), 404
-        image_description = sample["description"]
-        if notes:
-            image_description += f"\n\nAdditional context from observer: {notes}"
+        context = _writing_brief(draft)
+    grounded = f"{user}\n\n{context}"
+    return jsonify(_run_inference(WRITING_GUIDE, grounded, max_tokens=400, persona="writing"))
 
-    # Build the user message for the NPU text model
-    user_msg = (
-        f"IMAGE DESCRIPTION:\n{image_description}\n\n"
-        f"ANALYSIS INSTRUCTIONS:\n{prompt}\n\n"
-        "Based on the image description above, provide your structured analysis "
-        "as if you were directly observing this scene at Arizona State University."
+
+# ---- Staff-facing ----
+@app.route("/api/onboarding", methods=["POST"])
+def api_onboarding():
+    data = _user_payload(request)
+    user = (data.get("message") or "").strip()
+    role = data.get("role") or ""
+    if not user:
+        return jsonify({"error": "Empty message"}), 400
+    grounded = f"{user}\n\n{_onboarding_brief(role)}"
+    return jsonify(_run_inference(ONBOARDING_ASSISTANT, grounded, max_tokens=360, persona="onboarding"))
+
+
+@app.route("/api/concierge", methods=["POST"])
+def api_concierge():
+    user = _user_text(request)
+    if not user:
+        return jsonify({"error": "Empty message"}), 400
+    grounded = f"{user}\n\n{_concierge_brief()}"
+    return jsonify(_run_inference(CONCIERGE_AI, grounded, max_tokens=320, persona="concierge"))
+
+
+@app.route("/api/kb", methods=["POST"])
+def api_kb():
+    data = _user_payload(request)
+    user = (data.get("message") or "").strip()
+    article = data.get("article") or ""
+    if not user:
+        return jsonify({"error": "Empty message"}), 400
+    grounded = f"{user}\n\n{_kb_brief(article)}"
+    return jsonify(_run_inference(KNOWLEDGE_BASE, grounded, max_tokens=320, persona="kb"))
+
+
+@app.route("/api/dev", methods=["POST"])
+def api_dev():
+    data = _user_payload(request)
+    user = (data.get("message") or "").strip()
+    employee = data.get("employee") or ""
+    if not user:
+        return jsonify({"error": "Empty message"}), 400
+    grounded = f"{user}\n\n{_dev_brief(employee)}"
+    return jsonify(_run_inference(DEVELOPMENT_COACH, grounded, max_tokens=320, persona="dev"))
+
+
+# ---- Hybrid AI / M365 mock ----
+@app.route("/api/hybrid", methods=["POST"])
+def api_hybrid():
+    data = _user_payload(request)
+    user = (data.get("message") or "").strip()
+    scenario_id = data.get("scenario") or ""
+    if not user:
+        return jsonify({"error": "Empty message"}), 400
+    context_text, cards = _hybrid_context(scenario_id)
+    # Fake "cloud retrieval" latency for the demo (purely visual)
+    cloud_latency_ms = 240 + (hash(scenario_id or user) % 180)
+    grounded = (
+        f"USER REQUEST: {user}\n\n"
+        f"{context_text}\n\n"
+        "Use ONLY the cards above. Cite sources by name (Outlook / Teams / SharePoint)."
     )
-
-    t0 = time.time()
-    try:
-        result = _run_inference(
-            "You are an ASU facilities and student engagement analyst. "
-            "You are given a description of a photo taken on campus. "
-            "Respond with a detailed, structured analysis as instructed. "
-            "Write as though you are looking at the actual photo.",
-            user_msg
-        )
-        latency = int((time.time() - t0) * 1000)
-        response_text = result.get("response", "")
-        tokens = _estimate_tokens(user_msg) + _estimate_tokens(response_text)
-        return jsonify({
-            "response": response_text,
-            "tokens": tokens,
-            "latency_ms": latency,
-            "hardware": result.get("hardware", "Qualcomm NPU"),
-            "model": result.get("model", cli_model_alias or "phi-3.5-mini"),
-        })
-    except Exception as exc:
-        return jsonify({"error": str(exc)}), 500
+    result = _run_inference(HYBRID_CONCIERGE, grounded, max_tokens=420, persona="hybrid")
+    result["cards"] = cards
+    result["cloud_latency_ms"] = cloud_latency_ms
+    result["total_latency_ms"] = cloud_latency_ms + result.get("latency_ms", 0)
+    return jsonify(result)
 
 
 # ---------------------------------------------------------------------------

@@ -1,37 +1,52 @@
-# ASU NPU Demo — Script (60-90 seconds)
+# ASU NPU Showcase — Empower 2026 Demo Script (~90s)
 
 ## Opening (10s)
-> "This is an on-device AI demo built for ASU — Arizona State University.
-> Everything runs locally on this laptop's NPU. No cloud. No data leaves
-> the device. FERPA-compliant by design."
+> "Built around the eight AI use cases ASU is showcasing at Empower 2026
+> — running entirely on this laptop's NPU. No cloud. Nothing leaves the
+> device. FERPA-friendly by design."
 
-## Academic Advisor (15s)
-1. Click **Academic Advisor** tab
-2. Click the chip: *"DEMO Student A — CS junior. Interested in AI/ML…"*
-3. Click **Ask Advisor →**
-4. While waiting: *"The NPU is running phi-3.5-mini locally — analyzing
-   the student's transcript, prerequisites, and course availability."*
-5. Show the response — note the course recommendations grounded in data.
+## Student-facing demo (30s)
 
-## Student Success (15s)
-1. Click **Student Success** tab
-2. Click the chip: *"DEMO Student F — psychology senior, GPA 2.05…"*
-3. Click **Ask Coach →**
-4. *"This student is at critical risk — working 30+ hours, GPA declining.
-   Watch how the AI identifies specific interventions."*
+### Syllabot (10s)
+1. **Syllabot** tab → pick course **CSE 110**
+2. Click chip: *"When is the next assignment due in CSE 110?"*
+3. *"Watch — the NPU pulls the exact date from the local syllabus data."*
 
-## Financial Aid (10s)
-1. Click **Financial Aid** tab
-2. Click any chip — show the AI recommending specific aid strategies
-   with dollar amounts and deadlines.
+### Writing Guide (20s)
+1. **Writing Guide** tab → pick the *Jordan — Why Universities Should Adopt On-Device AI* sample
+2. Click chip: *"Give me structured feedback before I submit."*
+3. While waiting: *"Notice it doesn't rewrite the paper — it coaches.
+   Clarity, organization, grammar patterns, tone, next step."*
 
-## NPU Dashboard (15s)
-1. Click **NPU Dashboard** tab
-2. Point out: Hardware = NPU, Runtime = QNN, model name
-3. Show latency, tokens processed, cloud cost avoided
-4. *"Every query ran on the NPU. Zero cloud tokens. Zero cost.
-   At ASU's scale — 130,000 students — that's massive savings."*
+## Staff-facing demo (20s)
 
-## Close (10s)
-> "On-device AI for higher education. Private, fast, free after hardware.
-> This is the future of student services. Go Sun Devils!"
+### Concierge (10s)
+1. **Concierge** tab → chip *"How do I appeal a parking ticket?"*
+2. *"This is the unified Concierge — HR, IT, parking, library, registrar
+   in one place. Short answer up front, then steps and the system to use."*
+
+### Onboarding (10s)
+1. **Onboarding** tab → role **Academic Advisor**
+2. Chip *"What should I do in my first week?"*
+3. *"30/60/90 plan tailored to the role, with the systems they'll need
+   and who to ask — a real onboarding accelerator."*
+
+## Hybrid AI · M365 demo (20s)
+1. **Hybrid AI · M365** tab → scenario **Reply to Dr. Patel about the budget meeting**
+2. Point at the cards: *"Outlook email, Teams chat, SharePoint doc — this is
+   what M365 Copilot would retrieve. We're mocking it for the demo."*
+3. Click **Run Hybrid →**
+4. *"The retrieval is the fake-cloud part. The drafting? On-device. Look
+   — it cites all three sources and produces a complete reply."*
+5. Show the latency pills: cloud ~400 ms (mock), on-device ~20 s.
+
+## NPU Dashboard (10s)
+1. **NPU Dashboard** tab
+2. Hardware = NPU, Runtime = QNN, model = phi-3.5-mini
+3. Show total tokens processed, $0 cloud cost, 🔒 0 bytes left the device
+4. *"At ASU's scale — 130,000 learners, thousands of staff — this is
+   privacy and cost both compounding."*
+
+## Close
+> "Eight Empower 2026 use cases. One Hybrid mock. All on-device.
+> Go Sun Devils."

@@ -1,0 +1,51 @@
+{
+  "assignments": [
+    {
+      "id": "cse110-final",
+      "course": "CSE 110",
+      "title": "Final Project — Personal Data Tool",
+      "due": "2026-05-01",
+      "weight": "20% of course grade",
+      "summary": "Build a Python program (200+ LOC) that ingests a personal dataset of your choice (CSV/JSON), performs at least 3 useful queries, and produces a short written reflection on what you learned about the data.",
+      "deliverables": [
+        "Source code (.py, runnable)",
+        "README with run instructions",
+        "1-2 page reflection (PDF)",
+        "5-min demo video (Canvas Studio)"
+      ],
+      "rubric_focus": ["Correctness", "Code structure", "Use of functions/classes", "Reflection depth"],
+      "real_world_tie": "Same data-cleaning + analysis pattern used by analysts at every company — a portable, demonstrable skill."
+    },
+    {
+      "id": "eng101-p2",
+      "course": "ENG 101",
+      "title": "Project 2 — Argument Essay (1500-2000 words)",
+      "due": "2026-03-27",
+      "weight": "25% of course grade",
+      "summary": "Write a sustained argumentative essay on a contested issue of your choice. Must include at least 5 sources, at least 2 of which are peer-reviewed.",
+      "deliverables": [
+        "Annotated source list (week 7)",
+        "Outline (week 8)",
+        "Full draft for peer review (week 9)",
+        "Final essay (week 10)"
+      ],
+      "rubric_focus": ["Claim & stakes", "Evidence quality", "Counter-argument handling", "Citation accuracy (MLA or APA)"],
+      "real_world_tie": "The exact structure used in op-eds, policy memos, and grant justifications — argue for a change, anticipate objections, support with evidence."
+    },
+    {
+      "id": "bio181-lab8",
+      "course": "BIO 181",
+      "title": "Lab 8 — Photosynthesis Rate Experiment",
+      "due": "2026-04-08",
+      "weight": "Counts as 1 of 10 lab reports (20% category)",
+      "summary": "Design and run an experiment that measures photosynthesis rate in spinach leaf disks under three light intensities. Submit a full lab report (intro, methods, results with graph, discussion).",
+      "deliverables": [
+        "Pre-lab planning doc (week prior)",
+        "Raw data spreadsheet",
+        "Final report PDF (max 6 pages)"
+      ],
+      "rubric_focus": ["Hypothesis clarity", "Data quality", "Graph interpretation", "Discussion of error"],
+      "real_world_tie": "Mirrors how field biologists and ag-tech researchers test crop responses — same write-up format used for journal submissions."
+    }
+  ]
+}

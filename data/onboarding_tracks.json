@@ -1,0 +1,77 @@
+{
+  "tracks": [
+    {
+      "role": "Academic Advisor (new hire)",
+      "department": "University College — Advising",
+      "manager": "Director of Advising (DEMO)",
+      "first_day_checklist": [
+        "ASURITE account activation",
+        "Workday onboarding tasks (I-9, W-4, direct deposit)",
+        "Sun Card pickup (Memorial Union, lower level)",
+        "Office assignment + key/badge",
+        "PeopleSoft / Salesforce Advising Console access request"
+      ],
+      "30_day": [
+        "Shadow 5 advising appointments across majors",
+        "Complete FERPA training (mandatory)",
+        "Complete Title IX training",
+        "Read assigned policies: ACD 401, USI 102, SSM 902",
+        "Meet 1:1 with each team member (45 min)"
+      ],
+      "60_day": [
+        "Independently advise 10 students under co-sign",
+        "Attend 2 college-specific curriculum committee meetings",
+        "Complete 'Advising Approaches' online module",
+        "Begin owning a small caseload (~50 students)"
+      ],
+      "90_day": [
+        "Full caseload (~250-300 students)",
+        "Quarterly 1:1 with manager + self-assessment",
+        "Identify a year-1 development goal",
+        "Pick one process improvement to lead"
+      ],
+      "key_systems": ["MyASU", "PeopleSoft Campus Solutions", "Salesforce Advising Console", "DARS (Degree Audit Reporting System)", "Slate"],
+      "go_to_contacts": [
+        {"who": "HR Partner", "for": "benefits, leave, payroll"},
+        {"who": "IT Service Desk (855-278-5080)", "for": "account, software, hardware"},
+        {"who": "Manager", "for": "caseload, escalations, growth"},
+        {"who": "Assigned Onboarding Buddy", "for": "day-to-day questions, the unwritten stuff"}
+      ]
+    },
+    {
+      "role": "IT Support Technician (new hire)",
+      "department": "UTO — Tech Studio",
+      "manager": "Tech Studio Supervisor (DEMO)",
+      "first_day_checklist": [
+        "ASURITE + admin elevation request",
+        "Workday onboarding tasks",
+        "Sun Card pickup",
+        "Issued laptop, headset, badge",
+        "ServiceNow agent license + queue assignment"
+      ],
+      "30_day": [
+        "Shadow 10 walk-up tickets",
+        "Complete CompTIA A+ refresher (UTO LMS)",
+        "FERPA + HIPAA awareness training",
+        "Read SOPs: account-recovery, hardware-replacement, eduroam-troubleshooting"
+      ],
+      "60_day": [
+        "Own walk-up queue 2 days/week solo",
+        "Begin handling Tier-1 phone tickets",
+        "Pass internal practical assessment (timed scenarios)"
+      ],
+      "90_day": [
+        "Full Tier-1 ownership (walk-up + phone + chat)",
+        "Pick a specialization track (endpoint, network, AV)",
+        "Quarterly 1:1 + self-assessment"
+      ],
+      "key_systems": ["ServiceNow", "Microsoft Intune", "Active Directory", "Jamf (for Mac fleet)", "Cisco Webex Control Hub"],
+      "go_to_contacts": [
+        {"who": "HR Partner", "for": "benefits, leave"},
+        {"who": "Tech Studio Supervisor", "for": "queue priorities, escalations"},
+        {"who": "Senior Tech (mentor)", "for": "tricky tickets, shadowing"},
+        {"who": "Security Operations", "for": "any suspected incident"}
+      ]
+    }
+  ]
+}

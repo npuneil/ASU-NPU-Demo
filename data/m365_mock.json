@@ -1,0 +1,99 @@
+{
+  "_note": "Fictitious data simulating Microsoft 365 Copilot retrieval. No real M365 connection — content stays on-device.",
+  "scenarios": [
+    {
+      "id": "budget-meeting-reply",
+      "label": "Reply to Dr. Patel about the budget meeting",
+      "user_prompt_example": "Draft a reply to Dr. Patel about the FY26 budget meeting. Confirm Thursday and ask for the latest spreadsheet.",
+      "context": [
+        {
+          "source": "Outlook",
+          "icon": "📧",
+          "title": "Re: FY26 Budget Meeting — agenda",
+          "from": "Dr. P. Patel",
+          "to": "Sam (you)",
+          "received": "Yesterday 4:12 PM",
+          "snippet": "Hi Sam — confirming Thursday at 2 PM in COOR 174. I'll bring the draft personnel lines; can you bring the latest operating-budget spreadsheet? Also looping in J. Lin from finance."
+        },
+        {
+          "source": "Teams",
+          "icon": "💬",
+          "title": "Advising Leadership · 'budget' channel",
+          "from": "J. Lin",
+          "received": "This morning 9:45 AM",
+          "snippet": "FYI the FY26 operating template now has the new chart-of-accounts mappings — please use v3 (link in SharePoint), not the v2 from last month."
+        },
+        {
+          "source": "SharePoint",
+          "icon": "📄",
+          "title": "FY26_Operating_Budget_v3.xlsx",
+          "modified_by": "J. Lin",
+          "modified": "2 days ago",
+          "snippet": "Sheet 'Advising' updated through Q1 actuals. Tabs: Personnel, Operations, Travel, One-Time. Approval workflow: advisor lead → director → finance partner."
+        }
+      ]
+    },
+    {
+      "id": "onboarding-summary",
+      "label": "Summarize this week for the new hire",
+      "user_prompt_example": "Write a quick summary of this week's onboarding-related items for the new advisor starting Monday.",
+      "context": [
+        {
+          "source": "Outlook",
+          "icon": "📧",
+          "title": "New advisor — first-day logistics",
+          "from": "HR Partner",
+          "received": "2 days ago",
+          "snippet": "New hire R. Gomez starts Monday 8:30 AM. Meet in COOR 110. Sun Card pickup is 9:30 at MU. I'll handle Workday tasks 10-11."
+        },
+        {
+          "source": "Teams",
+          "icon": "💬",
+          "title": "Advising team chat",
+          "from": "Director",
+          "received": "Yesterday",
+          "snippet": "Please cover R. Gomez's first 1:1 cycle next week — 30 min each. Also ping me with onboarding-buddy assignments by Friday."
+        },
+        {
+          "source": "SharePoint",
+          "icon": "📄",
+          "title": "Advising_Onboarding_30-60-90.docx",
+          "modified_by": "Director",
+          "modified": "Last week",
+          "snippet": "Updated 30/60/90 plan now reflects new Salesforce Advising Console rollout. Add the 'Console basics' module before week 2."
+        }
+      ]
+    },
+    {
+      "id": "policy-question",
+      "label": "Where's the policy on late-add petitions?",
+      "user_prompt_example": "Find me the latest policy on late-add petitions and summarize the key changes since last year.",
+      "context": [
+        {
+          "source": "SharePoint",
+          "icon": "📄",
+          "title": "KB-2041_Late-add_petitions.md",
+          "modified_by": "Director of Advising",
+          "modified": "Aug 12, 2025",
+          "snippet": "Petitions accepted within 5 weeks of term start. Requires instructor approval and documented qualifying reason. Submitted via PeopleSoft > Records > Petition Workflow. Hard cutoff: end of week 6."
+        },
+        {
+          "source": "Outlook",
+          "icon": "📧",
+          "title": "Policy update — late-add now week 5",
+          "from": "Director of Advising",
+          "received": "Aug 14, 2025",
+          "snippet": "FYI: late-add window shortened from 6 weeks to 5 weeks effective Fall '25. Hard cutoff (week 6) unchanged. Update your student-facing language."
+        },
+        {
+          "source": "Teams",
+          "icon": "💬",
+          "title": "Advising Leadership channel",
+          "from": "Compliance",
+          "received": "Aug 13, 2025",
+          "snippet": "Reminder: petitions still require a documented qualifying reason. Verbal claims aren't sufficient — get it in writing or via the standardized form."
+        }
+      ]
+    }
+  ]
+}

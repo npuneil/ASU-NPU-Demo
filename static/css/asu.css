@@ -368,3 +368,85 @@ textarea:focus, select:focus, input:focus {
   border-top: 1px solid var(--gray-200);
   margin-top: 2rem;
 }
+
+/* ---- Tab group labels (Empower 2026) ---- */
+.tab-group-label {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 0.7rem;
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--gold);
+  font-weight: 700;
+  border-left: 1px solid rgba(255,255,255,0.15);
+  margin-left: 0.4rem;
+  white-space: nowrap;
+}
+.tab-group-label:first-of-type { border-left: none; margin-left: 0; }
+
+/* ---- Home group accents ---- */
+.card.group-students { border-left-color: var(--maroon); }
+.card.group-staff    { border-left-color: var(--gold); }
+.card.group-hybrid   { border-left-color: #5b8def; }
+.usecase-list { list-style: none; padding: 0; font-size: 0.86rem; color: var(--gray-800); }
+.usecase-list li { padding: 0.18rem 0; }
+
+/* ---- M365 / Hybrid cards ---- */
+.m365-row-label {
+  font-size: 0.78rem;
+  color: var(--gray-600);
+  margin: 0.4rem 0 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.m365-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.7rem;
+  margin-bottom: 1rem;
+}
+.m365-card {
+  background: var(--card-bg);
+  border: 1px solid var(--gray-200);
+  border-left: 4px solid #5b8def;
+  border-radius: var(--radius);
+  padding: 0.8rem 0.9rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  font-size: 0.8rem;
+}
+.m365-card.source-outlook    { border-left-color: #0078d4; }
+.m365-card.source-teams      { border-left-color: #6264a7; }
+.m365-card.source-sharepoint { border-left-color: #038387; }
+.m365-head {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--gray-600);
+  margin-bottom: 0.3rem;
+}
+.m365-icon { font-size: 1rem; }
+.m365-source { font-weight: 700; }
+.m365-title  { font-weight: 600; color: var(--gray-800); margin-bottom: 0.15rem; }
+.m365-sub    { font-size: 0.72rem; color: var(--gray-600); margin-bottom: 0.4rem; }
+.m365-snippet{ color: var(--gray-800); line-height: 1.45; }
+
+.hybrid-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.8rem;
+}
+.hybrid-pill {
+  font-size: 0.75rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 16px;
+  background: var(--gray-100);
+  color: var(--gray-800);
+}
+.hybrid-pill.cloud { background: #e8f0fe; color: #0078d4; }
+.hybrid-pill.local { background: #f4e8ff; color: #6264a7; }
+.hybrid-pill.total { background: var(--maroon); color: var(--white); font-weight: 600; }

@@ -1,0 +1,102 @@
+{
+  "courses": [
+    {
+      "code": "CSE 110",
+      "title": "Principles of Programming",
+      "instructor": "Prof. M. Reyes (DEMO)",
+      "term": "Spring 2026",
+      "credits": 3,
+      "office_hours": "Tue/Thu 1:00-2:30pm, BYENG 462 or Zoom",
+      "grading": {
+        "Programming Assignments (6)": "30%",
+        "Quizzes (10, lowest dropped)": "10%",
+        "Midterm 1": "15%",
+        "Midterm 2": "15%",
+        "Final Project": "20%",
+        "Participation": "10%"
+      },
+      "due_dates": [
+        {"item": "PA1 — Hello World+", "due": "2026-01-30", "submit": "Gradescope"},
+        {"item": "PA2 — Loops & Lists", "due": "2026-02-13", "submit": "Gradescope"},
+        {"item": "Midterm 1", "due": "2026-02-20", "submit": "In class"},
+        {"item": "PA3 — Functions", "due": "2026-02-27", "submit": "Gradescope"},
+        {"item": "PA4 — File I/O", "due": "2026-03-20", "submit": "Gradescope"},
+        {"item": "Midterm 2", "due": "2026-03-27", "submit": "In class"},
+        {"item": "PA5 — Classes", "due": "2026-04-10", "submit": "Gradescope"},
+        {"item": "Final Project Proposal", "due": "2026-04-17", "submit": "Canvas"},
+        {"item": "PA6 — Recursion", "due": "2026-04-24", "submit": "Gradescope"},
+        {"item": "Final Project", "due": "2026-05-01", "submit": "Canvas"}
+      ],
+      "late_policy": "10% per calendar day, max 3 days late. After that, 0.",
+      "materials": [
+        "Think Python (Downey, free PDF)",
+        "VS Code + Python 3.11",
+        "Gradescope account (auto-provisioned via Canvas)"
+      ],
+      "integrity": "All submitted code must be your own. AI assistants may be used only for concept review, never to generate submitted code. See ASU Academic Integrity Policy ACD 401.",
+      "exam_format": "Closed-book, paper, calculators allowed but not required."
+    },
+    {
+      "code": "ENG 101",
+      "title": "First-Year Composition",
+      "instructor": "Dr. A. Park (DEMO)",
+      "term": "Spring 2026",
+      "credits": 3,
+      "office_hours": "Mon 10-11am and Wed 2-3pm, RBHL 320 or by appointment",
+      "grading": {
+        "Project 1 (Rhetorical Analysis)": "20%",
+        "Project 2 (Argument Essay)": "25%",
+        "Project 3 (Multimodal Project)": "25%",
+        "Reflective Portfolio": "20%",
+        "In-class Workshops & Peer Review": "10%"
+      },
+      "due_dates": [
+        {"item": "Project 1 draft", "due": "2026-02-06", "submit": "Canvas"},
+        {"item": "Project 1 final", "due": "2026-02-20", "submit": "Canvas"},
+        {"item": "Project 2 draft", "due": "2026-03-13", "submit": "Canvas"},
+        {"item": "Project 2 final", "due": "2026-03-27", "submit": "Canvas"},
+        {"item": "Project 3 final", "due": "2026-04-24", "submit": "Canvas"},
+        {"item": "Reflective Portfolio", "due": "2026-05-01", "submit": "Canvas"}
+      ],
+      "late_policy": "Drafts: no grade penalty but disqualifies you from peer review credit. Final submissions: 5% per day, max 4 days.",
+      "materials": [
+        "Everything's an Argument (Lunsford, ASU rental)",
+        "Canvas + Microsoft 365 (free for ASU students)"
+      ],
+      "integrity": "Generative AI may be used for brainstorming and feedback only. Any AI-assisted text must be disclosed in the reflective portfolio. Undisclosed use is an integrity violation.",
+      "exam_format": "No exams. Portfolio-based assessment."
+    },
+    {
+      "code": "BIO 181",
+      "title": "General Biology I",
+      "instructor": "Dr. L. Nguyen (DEMO)",
+      "term": "Spring 2026",
+      "credits": 4,
+      "office_hours": "Tue 11am-12pm, LSE 218; Thu 4-5pm via Zoom",
+      "grading": {
+        "Lecture exams (3)": "45%",
+        "Final exam": "20%",
+        "Lab reports (10)": "20%",
+        "iClicker participation": "5%",
+        "Pre-lecture quizzes": "10%"
+      },
+      "due_dates": [
+        {"item": "Lab 1 report", "due": "2026-01-28", "submit": "Canvas"},
+        {"item": "Exam 1", "due": "2026-02-12", "submit": "In class"},
+        {"item": "Lab 4 report", "due": "2026-02-25", "submit": "Canvas"},
+        {"item": "Exam 2", "due": "2026-03-12", "submit": "In class"},
+        {"item": "Lab 7 report", "due": "2026-04-01", "submit": "Canvas"},
+        {"item": "Exam 3", "due": "2026-04-16", "submit": "In class"},
+        {"item": "Final exam", "due": "2026-05-04", "submit": "In class"}
+      ],
+      "late_policy": "Lab reports: 20% off per day, no acceptance after 3 days. Exams cannot be made up without an approved excused-absence form.",
+      "materials": [
+        "Campbell Biology (12th ed.) — required",
+        "iClicker Reef subscription",
+        "Lab notebook (carbon-copy, sold at SDFC bookstore)"
+      ],
+      "integrity": "Lab partners may share data but each report must be written individually. Use of AI to generate report text is prohibited.",
+      "exam_format": "Mixed multiple choice + short answer. Final is cumulative."
+    }
+  ]
+}

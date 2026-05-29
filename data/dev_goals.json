@@ -1,0 +1,45 @@
+{
+  "goal_sheets": [
+    {
+      "employee": "Sam (DEMO)",
+      "role": "Academic Advisor — Year 2",
+      "goals": [
+        {
+          "id": "G1",
+          "category": "Communication",
+          "statement": "Be more concise in advising emails; reduce average response length by 30%.",
+          "current_state": "Average reply 320 words; students often ask follow-ups.",
+          "success_signal": "Average reply ≤ 220 words and follow-up rate down by 25%."
+        },
+        {
+          "id": "G2",
+          "category": "Influence",
+          "statement": "Lead one cross-team workshop on FERPA-safe documentation by end of Q2.",
+          "current_state": "Have presented in team meetings only.",
+          "success_signal": "Workshop delivered; >75% of attendees report it useful in survey."
+        },
+        {
+          "id": "G3",
+          "category": "Wellbeing",
+          "statement": "Protect 2 hours of focus time per day, 4 days a week.",
+          "current_state": "Calendar fragmented; deep work happens after 5pm.",
+          "success_signal": "Calendar shows 8+ focus blocks/week; reduced after-hours work."
+        }
+      ]
+    }
+  ],
+  "competency_framework": [
+    "Student-centered advising",
+    "Process improvement",
+    "Cross-team collaboration",
+    "Inclusive communication",
+    "Data literacy"
+  ],
+  "reflection_prompts": [
+    "What is one thing that worked well this week?",
+    "Where did you feel resistance, and what did it teach you?",
+    "Which conversation would you handle differently next time?",
+    "What is the smallest next step toward your top goal?",
+    "Who do you owe thanks or feedback to?"
+  ]
+}

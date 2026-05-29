@@ -1,0 +1,77 @@
+{
+  "topics": [
+    {
+      "topic": "Parking permit appeal",
+      "owner": "Parking & Transit Services",
+      "system": "MyASU > Parking Portal",
+      "steps": [
+        "Sign in to MyASU with ASURITE.",
+        "Open Parking Portal > Citations.",
+        "Click 'Appeal' on the citation in question (must be within 10 calendar days).",
+        "Upload supporting evidence (photos, signage, receipts).",
+        "Submit. You'll receive an emailed decision within 14 business days."
+      ],
+      "sla": "14 business days for decision",
+      "office_hours": "Mon-Fri 8am-5pm; in-person at PSF building",
+      "notes": "Habitual appeals (3+ in a year) may be denied without review."
+    },
+    {
+      "topic": "Reset ASURITE password",
+      "owner": "UTO — Identity",
+      "system": "asu.edu/password",
+      "steps": [
+        "Go to asu.edu/password.",
+        "Click 'Reset password' and enter your ASURITE.",
+        "Verify with your registered MFA method (Duo Push, SMS, or backup code).",
+        "Choose a new password meeting policy (16+ chars, no last 24 reused).",
+        "Sign back in to MyASU to confirm."
+      ],
+      "sla": "Self-service, immediate",
+      "office_hours": "24/7 self-service; live help via UTO Service Desk 855-278-5080",
+      "notes": "If MFA is also lost, use the in-person identity verification at the Tech Studio."
+    },
+    {
+      "topic": "Book a study room at Hayden Library",
+      "owner": "ASU Library",
+      "system": "lib.asu.edu > Book a Room",
+      "steps": [
+        "Visit lib.asu.edu and click 'Book a Room'.",
+        "Filter by location (Hayden), capacity, and date.",
+        "Sign in with ASURITE.",
+        "Select up to a 2-hour slot, max 14 days in advance.",
+        "Confirm — you'll get a confirmation email and a check-in code."
+      ],
+      "sla": "Instant confirmation",
+      "office_hours": "Hayden 24/5 during fall/spring",
+      "notes": "No-shows after 15 minutes free the room automatically. 3 no-shows in a semester = booking suspended for 30 days."
+    },
+    {
+      "topic": "Submit an HR question (benefits, payroll, leave)",
+      "owner": "Human Resources",
+      "system": "ServiceNow > HR Portal",
+      "steps": [
+        "Open the ServiceNow HR Portal at hrportal.asu.edu.",
+        "Choose the category that fits (Benefits, Payroll, Leave, Other).",
+        "Submit the form — you'll receive a ticket number.",
+        "Watch your ASU email for a response from your assigned HR Partner."
+      ],
+      "sla": "2 business days for first response",
+      "office_hours": "Mon-Fri 8am-5pm",
+      "notes": "Urgent payroll issues should be flagged via the 'Urgent' checkbox on the form."
+    },
+    {
+      "topic": "Request a classroom AV check",
+      "owner": "Classroom Support — UTO",
+      "system": "ServiceNow > Classroom Support",
+      "steps": [
+        "Open ServiceNow > Classroom Support.",
+        "Provide building, room, scheduled time, and the issue.",
+        "If urgent (in-progress class), call 480-965-6500 instead.",
+        "A technician will arrive within 15 minutes for in-progress issues."
+      ],
+      "sla": "15-minute on-site for in-progress; 1 business day for scheduled",
+      "office_hours": "Daily 7am-10pm (Mon-Sat) during fall/spring terms",
+      "notes": "Always provide the room number on the door — not the catalog name."
+    }
+  ]
+}
