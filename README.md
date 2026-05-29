@@ -78,6 +78,18 @@ voice_vision.py        — Whisper STT + Phi-3.5-vision (kept for future)
 `/api/data/*` returns dropdown metadata (courses, topics, assignments,
 drafts, roles, KB articles, employees, hybrid scenarios).
 
+## Troubleshooting
+
+| Symptom | Cause / Fix |
+|---|---|
+| `ERROR: Could not find a version that satisfies the requirement openvino` | You're on Snapdragon X (ARM64). OpenVINO has no ARM64 Windows wheel. **Use `pip install -r requirements.txt`** (not `requirements-intel.txt`). The app does not need OpenVINO on Snapdragon. |
+| `[STARTUP] Foundry Local CLI not found on PATH` | Run `winget install Microsoft.FoundryLocal`, then restart your shell. The app will still boot in UI-preview mode if Foundry is missing. |
+| First boot hangs for 1–5 minutes on Snapdragon | Expected. `foundry model run --device NPU` downloads + warms the QNN model on first use. Subsequent boots reuse the loaded model. |
+| `[Errno 98]` / `OSError: [WinError 10048]` port in use | Set `set ASU_PORT=5099` (any free port) and re-run. |
+| `UnicodeEncodeError` on banner | Fixed in this build — UTF-8 is forced on stdout/stderr. If you see it, you're on a pre-fix copy; `git pull`. |
+| Want to skip the slow NPU preload | `set ASU_SKIP_FOUNDRY=1 && python app.py` boots into UI-preview mode in seconds (no AI, mock responses). Great for UI work and smoke tests. |
+| Check live status | `curl http://localhost:5007/healthz` returns silicon, model, foundry status, fallback reason. |
+
 ## Disclaimers
 
 - **All data is fictitious** — courses, syllabi, drafts, KB articles,

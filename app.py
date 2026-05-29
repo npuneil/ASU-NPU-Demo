@@ -19,9 +19,19 @@ Foundry Local discovery pattern adapted from npuneil/holt-cat-npu-demo.
 
 from __future__ import annotations
 
+import sys as _sys
+# Force UTF-8 on stdout/stderr so emoji + em-dashes don't crash on Windows
+# consoles defaulting to cp1252. Safe no-op on Python <3.7 or non-TTY.
+for _stream in (_sys.stdout, _sys.stderr):
+    try:
+        _stream.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:
+        pass
+
 import json
 import os
 import re
+import shutil
 import subprocess
 import sys
 import threading
@@ -60,6 +70,15 @@ except Exception as _vv_exc:
 BASE_DIR = Path(__file__).resolve().parent
 DATA_DIR = BASE_DIR / "data"
 SERVER_PORT = int(os.environ.get("ASU_PORT", "5007"))
+
+# Set ASU_SKIP_FOUNDRY=1 to bypass the (slow) Foundry NPU preload entirely
+# and boot straight into UI-preview mode. Useful for smoke tests and for
+# teammates who just want to see the UI before installing Foundry Local.
+SKIP_FOUNDRY = os.environ.get("ASU_SKIP_FOUNDRY", "").strip() not in ("", "0", "false", "False")
+
+# Cache the foundry executable path once at import — saves PATH lookups and
+# lets us print a single actionable message if it is missing.
+FOUNDRY_PATH = shutil.which("foundry")
 
 QNN_NPU_PREFERENCE = [
     "phi-3.5-mini",
@@ -243,6 +262,19 @@ def init_foundry() -> None:
     hardware_label = "CPU"
     fallback_reason = ""
 
+    if SKIP_FOUNDRY:
+        print("[STARTUP] ASU_SKIP_FOUNDRY set — skipping Foundry init. UI-preview mode.")
+        fallback_reason = "Foundry init skipped via ASU_SKIP_FOUNDRY"
+        return
+
+    if FOUNDRY_PATH is None:
+        print("[STARTUP] Foundry Local CLI not found on PATH.")
+        print("[STARTUP]   Install:  winget install Microsoft.FoundryLocal")
+        print("[STARTUP]   Docs:     https://learn.microsoft.com/azure/ai-foundry/foundry-local/")
+        print("[STARTUP] Running in UI-preview mode (mock responses).")
+        fallback_reason = "Foundry Local CLI not installed — UI-preview mode"
+        return
+
     # ------------------------------------------------------------------
     # Qualcomm path — QNN NPU models crash the HTTP API but work via CLI.
     # We preload via `foundry model run --prompt` and keep using CLI.
@@ -338,7 +370,11 @@ def init_foundry() -> None:
     foundry_service_url = None
 
 
-init_foundry()
+try:
+    init_foundry()
+except Exception as _init_exc:
+    print(f"[STARTUP] init_foundry crashed ({_init_exc}); continuing in UI-preview mode.")
+    fallback_reason = f"Foundry init error: {_init_exc}"
 
 if foundry_ok and not use_cli_inference:
     try:
@@ -1044,8 +1080,19 @@ def api_hybrid():
 # Health / Utility
 # ---------------------------------------------------------------------------
 @app.route("/api/health")
+@app.route("/healthz")
 def api_health():
-    return jsonify({"status": "ok", "model": model_id, "foundry": foundry_ok})
+    return jsonify({
+        "status": "ok",
+        "model": model_id,
+        "foundry": foundry_ok,
+        "silicon": SILICON,
+        "hardware": hardware_label,
+        "cli_inference": use_cli_inference,
+        "foundry_cli_found": FOUNDRY_PATH is not None,
+        "voice_vision": VOICE_VISION_OK,
+        "fallback_reason": fallback_reason,
+    })
 
 
 # ---------------------------------------------------------------------------
