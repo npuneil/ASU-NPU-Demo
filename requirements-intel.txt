@@ -1,0 +1,3 @@
+-r requirements.txt
+openvino>=2024.0
+openvino-genai>=2024.2

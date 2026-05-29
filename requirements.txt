@@ -1,6 +1,9 @@
 flask
-openvino>=2024.0
-openvino-genai>=2024.2
 huggingface_hub
 numpy
 Pillow
+
+# Optional — Intel Core Ultra only. OpenVINO has no ARM64 Windows wheel
+# and is NOT needed on Snapdragon X (which uses Foundry Local + QNN).
+# To enable the Intel/OpenVINO voice+vision path:
+#   pip install -r requirements-intel.txt

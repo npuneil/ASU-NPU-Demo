@@ -9,3 +9,6 @@ build/
 .env
 *.wav
 *.mp3
+*.log
+boot.out
+boot.err
